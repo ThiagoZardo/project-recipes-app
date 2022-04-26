@@ -81,3 +81,20 @@ describe('6. Verifica se há 2 tokens no localStorage.', () => {
     expect(keyCocktailsToken).toBe(keyCocktailsToken);
   });
 });
+
+describe('7. Verifica se o e-mail esta no localStorage.', () => {
+  it('a chave user deve estar salva em localStorage', () => {
+    render(<Login />);
+    const password = '123456';
+    const user = 'email@email.com';
+    const inputEmail = screen.getByTestId(EMAIL_INPUT_TEST_ID);
+    const inputPassword = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
+    const btnSubmit = screen.getByTestId(BTN_LOGIN_SUBMIT);
+
+    userEvent.type(inputPassword, password);
+    userEvent.type(inputEmail, user);
+    userEvent.click(btnSubmit);
+    const userLogin = localStorage.getItem(user);
+    expect(userLogin).toBe(userLogin);
+  });
+});
