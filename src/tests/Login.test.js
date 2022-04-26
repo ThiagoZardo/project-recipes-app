@@ -8,6 +8,8 @@ import {
   PASSWORD_INPUT_TEST_ID,
   BTN_LOGIN_SUBMIT,
 } from './helpers/constants';
+import renderWithRouter from '../renderWithRouter';
+import App from '../App';
 
 describe('2. Verifica se existe email, password e login', () => {
   it('Verifica se existe email', () => {
@@ -64,13 +66,12 @@ describe('5. O botão só ativa quando o form for válido', () => {
 
 describe('6. Verifica se há 2 tokens no localStorage.', () => {
   it('mealsToken e cocktailsToken devem estar no localStorage', () => {
-    render(<Login />);
+    renderWithRouter(<App />);
     const password = '123456';
     const email = 'email@email.com';
     const inputEmail = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const inputPassword = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
     const btnSubmit = screen.getByTestId(BTN_LOGIN_SUBMIT);
-
     userEvent.type(inputPassword, password);
     userEvent.type(inputEmail, email);
     userEvent.click(btnSubmit);
@@ -84,7 +85,7 @@ describe('6. Verifica se há 2 tokens no localStorage.', () => {
 
 describe('7. Verifica se o e-mail esta no localStorage.', () => {
   it('a chave user deve estar salva em localStorage', () => {
-    render(<Login />);
+    renderWithRouter(<App />);
     const password = '123456';
     const user = 'email@email.com';
     const inputEmail = screen.getByTestId(EMAIL_INPUT_TEST_ID);
@@ -96,5 +97,21 @@ describe('7. Verifica se o e-mail esta no localStorage.', () => {
     userEvent.click(btnSubmit);
     const userLogin = localStorage.getItem(user);
     expect(userLogin).toBe(userLogin);
+  });
+});
+
+describe('8. Verifica se a rota esta correta', () => {
+  it('A rota muda para a tela principal de receitas de comidas', () => {
+    const { history } = renderWithRouter(<App />);
+    const password = '123456';
+    const user = 'email@email.com';
+    const inputEmail = screen.getByTestId(EMAIL_INPUT_TEST_ID);
+    const inputPassword = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
+    const btnSubmit = screen.getByTestId(BTN_LOGIN_SUBMIT);
+    userEvent.type(inputPassword, password);
+    userEvent.type(inputEmail, user);
+    userEvent.click(btnSubmit);
+    const { pathname } = history.location;
+    expect(pathname).toBe('/foods');
   });
 });

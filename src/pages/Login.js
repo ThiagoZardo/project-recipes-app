@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 function Login() {
   const keyMealsToken = '1';
   const keyCocktailsToken = '1';
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const validateButton = () => {
     const emailRegex = /\S+@\S+\.\S+/;
@@ -19,6 +21,7 @@ function Login() {
     localStorage.setItem('mealsToken', keyMealsToken);
     localStorage.setItem('cocktailsToken', keyCocktailsToken);
     localStorage.setItem('user', JSON.stringify(`email: ${user}`));
+    setLoginSuccess(true);
   };
 
   return (
@@ -45,6 +48,7 @@ function Login() {
           >
             Enter
           </button>
+          { loginSuccess && <Redirect to="/foods" /> }
         </form>
       </div>
 
