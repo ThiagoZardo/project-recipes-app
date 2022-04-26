@@ -40,3 +40,18 @@ describe('4. A pessoa deve conseguir digitar a sua senha', () => {
     expect(inputPassword).toHaveValue(password);
   });
 });
+
+describe('5. O botão só ativa quando o form for válido', () => {
+  it('O botão deve estar desativado se o email for inválido', () => {
+    render(<Login />);
+    const password = '123456';
+    const email = 'email@email.com';
+    const inputEmail = screen.getByTestId('email-input');
+    const inputPassword = screen.getByTestId('password-input');
+    const btnSubmit = screen.getByTestId('login-submit-btn');
+    expect(btnSubmit).toBeDisabled();
+    userEvent.type(inputPassword, password);
+    userEvent.type(inputEmail, email);
+    expect(btnSubmit).toBeEnabled();
+  });
+});
