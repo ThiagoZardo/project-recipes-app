@@ -27,6 +27,16 @@ describe('3. A pessoa deve conseguir digitar o seu email', () => {
     const email = 'email@email.com';
     const inputEmail = screen.getByTestId('email-input');
     userEvent.type(inputEmail, email);
-    expect(screen.getByRole('textbox')).toHaveValue(email);
+    expect(inputEmail).toHaveValue(email);
+  });
+});
+
+describe('4. A pessoa deve conseguir digitar a sua senha', () => {
+  it('É possivel digitar a senha', () => {
+    render(<Login />);
+    const password = '123456';
+    const inputPassword = screen.getByTestId('password-input');
+    userEvent.type(inputPassword, password);
+    expect(inputPassword).toHaveValue(password);
   });
 });
