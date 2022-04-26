@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 function Login() {
+  const keyMealsToken = '1';
+  const keyCocktailsToken = '1';
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,6 +16,9 @@ function Login() {
   };
 
   const userLogin = () => {
+    localStorage.setItem('mealsToken', keyMealsToken);
+    localStorage.setItem('cocktailsToken', keyCocktailsToken);
+    localStorage.setItem('user', `{ email: ${user} }`);
   };
 
   return (
