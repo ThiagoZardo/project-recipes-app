@@ -8,7 +8,7 @@ function Foods() {
       <header>
         <h3 data-testid="page-title">Foods</h3>
         <Header />
-        <HeaderSearch />
+        <HeaderSearch heading="Foods" />
       </header>
     </div>
   );
