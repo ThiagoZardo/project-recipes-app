@@ -2,11 +2,11 @@ import React from 'react';
 import Header from '../components/Header';
 import HeaderSearch from '../components/HeaderSearch';
 
-function Foods() {
+function ExploreNationalities() {
   return (
     <div>
       <header>
-        <h3 data-testid="page-title">Foods</h3>
+        <h3 data-testid="page-title">Explore Nationalities</h3>
         <Header />
         <HeaderSearch />
       </header>
@@ -14,4 +14,4 @@ function Foods() {
   );
 }
 
-export default Foods;
+export default ExploreNationalities;
