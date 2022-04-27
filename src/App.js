@@ -3,16 +3,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
-import { fetchMeals, fetchDrinks } from './helpers';
+import Foods from './pages/Foods';
 
 function App() {
-  console.log(fetchMeals());
-  console.log(fetchDrinks());
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/foods" component="Foods" />
+        <Route path="/foods" component={ Foods } />
         <Route path="/drinks" component="Drinks" />
         <Route path="/foods/{id-da-receita}" component="" />
         <Route path="/drinks/{id-da-receita}" component="" />
