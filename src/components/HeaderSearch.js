@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 function HeaderSearch() {
   const [disabled, setDisabled] = useState(false);
-  const handleClick = () => {
-    if (disabled) setDisabled(false);
-    if (disabled === false) setDisabled(true);
-  };
+  // const handleClick = () => {
+  //   setDisabled(!disabled);
+  //   // if (disabled) setDisabled(false);
+  //   // if (disabled === false) setDisabled(true);
+  // };
   return (
     <div>
       <input
@@ -13,7 +14,7 @@ function HeaderSearch() {
         src="images/searchIcon.svg"
         alt="Search"
         data-testid="search-top-btn"
-        onClick={ handleClick }
+        onClick={ () => setDisabled(!disabled) }
       />
       {
         disabled

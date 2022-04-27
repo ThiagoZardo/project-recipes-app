@@ -6,8 +6,7 @@ function Explore() {
   return (
     <div>
       <header>
-        <h3 data-testid="page-title">Explore</h3>
-        <Header />
+        <Header heading="Explore" />
       </header>
       <Footer />
     </div>

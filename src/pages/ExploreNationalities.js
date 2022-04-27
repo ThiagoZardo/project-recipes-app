@@ -7,8 +7,7 @@ function ExploreNationalities() {
   return (
     <div>
       <header>
-        <h3 data-testid="page-title">Explore Nationalities</h3>
-        <Header />
+        <Header heading="Explore Nationalities" />
         <HeaderSearch />
       </header>
       <Footer />
