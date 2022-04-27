@@ -4,23 +4,21 @@ import { Redirect } from 'react-router-dom';
 function Login() {
   const keyMealsToken = '1';
   const keyCocktailsToken = '1';
-  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const validateButton = () => {
     const emailRegex = /\S+@\S+\.\S+/;
     const minPassword = 6;
-    if ((emailRegex.test(user)) && (password.length >= minPassword)) {
-      return false;
-    }
-    return true;
+    return ((emailRegex.test(email)) && (password.length > minPassword));
   };
 
   const userLogin = () => {
+    const user = { email };
     localStorage.setItem('mealsToken', keyMealsToken);
     localStorage.setItem('cocktailsToken', keyCocktailsToken);
-    localStorage.setItem('user', JSON.stringify(`email: ${user}`));
+    localStorage.setItem('user', JSON.stringify(user));
     setLoginSuccess(true);
   };
 
@@ -31,7 +29,7 @@ function Login() {
           <input
             type="email"
             data-testid="email-input"
-            onChange={ ({ target }) => setUser(target.value) }
+            onChange={ ({ target }) => setEmail(target.value) }
           />
 
           <input
@@ -44,7 +42,7 @@ function Login() {
             type="button"
             data-testid="login-submit-btn"
             onClick={ userLogin }
-            disabled={ validateButton() }
+            disabled={ !validateButton() }
           >
             Enter
           </button>
