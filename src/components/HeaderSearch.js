@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import inputBar from '../redux/actions';
 
 function HeaderSearch() {
   const [disabled, setDisabled] = useState(false);
-  // const handleClick = () => {
-  //   setDisabled(!disabled);
-  //   // if (disabled) setDisabled(false);
-  //   // if (disabled === false) setDisabled(true);
-  // };
+  const [search, setSeach] = useState('');
+  const dispatch = useDispatch();
+  dispatch(inputBar(search));
+
   return (
     <div>
       <input
@@ -23,6 +24,8 @@ function HeaderSearch() {
         data-testid="search-input"
         id="search"
         name="search"
+        value={ search }
+        onChange={ (e) => setSeach(e.target.value) }
       />
     )
       }

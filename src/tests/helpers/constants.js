@@ -7,3 +7,7 @@ export const HEADER_PROFILE_TOP_BTN_ID = 'profile-top-btn';
 export const HEADER_SEARCH_TOP_BTN_ID = 'search-top-btn';
 export const HEADER_SEARCH_INPUT_ID = 'search-input';
 export const PAGE_TITLE_ID = 'page-title';
+export const INGREDIENT_SEARCH_RADIO = 'ingredient-search-radio';
+export const NAME_SEARCH_RADIO = 'name-search-radio';
+export const FIRST_LETTER_SEARCH_RADIO = 'first-letter-search-radio';
+export const EXEC_SEARCH_BTN = 'exec-search-btn';
