@@ -5,8 +5,7 @@ function Favorite() {
   return (
     <div>
       <header>
-        <h3 data-testid="page-title">Favorite Recipes</h3>
-        <Header />
+        <Header heading="Favorite Recipes" />
       </header>
     </div>
   );

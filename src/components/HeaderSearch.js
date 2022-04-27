@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import inputBar from '../redux/actions';
+import { inputBar } from '../redux/actions';
 
-function HeaderSearch(props) {
-  const { heading } = props;
+function HeaderSearch() {
   const [disabled, setDisabled] = useState(false);
   const [search, setSeach] = useState('');
-  const handleClick = () => {
-    if (disabled) setDisabled(false);
-    if (disabled === false) setDisabled(true);
-  };
   const dispatch = useDispatch();
   dispatch(inputBar(search));
 
@@ -20,7 +15,7 @@ function HeaderSearch(props) {
         src="images/searchIcon.svg"
         alt="Search"
         data-testid="search-top-btn"
-        onClick={ handleClick }
+        onClick={ () => setDisabled(!disabled) }
       />
       {
         disabled
