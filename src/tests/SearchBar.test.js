@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import SearchBar from '../components/SearchBar';
 import renderWithRouter from '../renderWithRouter';
-
 import {
   INGREDIENT_SEARCH_RADIO,
   NAME_SEARCH_RADIO,
@@ -33,5 +33,15 @@ describe('12. Implemente os elementos da barra de busca', () => {
     renderWithRouter(<SearchBar />);
     const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
     expect(execSearchBtn).toBeInTheDocument();
+  });
+});
+
+describe('13. Verifica se os endpoints estão corretos', () => {
+  it('Verifica o end point ingredients', async () => {
+    renderWithRouter(<SearchBar />);
+    const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
+    userEvent.click(execSearchBtn);
+    // const p = await screen.findByTestId('teste');
+    // expect(p).toHaveTextContent('Corba');
   });
 });
