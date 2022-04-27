@@ -1,52 +1,59 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 // import { Redirect } from 'react-router-dom';
 import { fetchFoods, getDrinks } from '../helpers';
+import { searchDrink, searchFood } from '../redux/actions';
 
 const SearchBar = (props) => {
   const { heading } = props;
   const [endPoint, setEndPoint] = useState({});
+  const [food, setFood] = useState([]);
+  const [drink, setDrink] = useState([]);
   const searchValueStore = useSelector((state) => state.search.searchValue);
-  const [item, setItem] = useState([]);
-  // const [redirect, setRedirect] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const VerifyPage = async (endpoint) => {
-    if (heading === 'Foods') await fetchFoods(endpoint);
-    await getDrinks(endpoint);
+    if (heading === 'Foods') {
+      const data = await fetchFoods(endpoint);
+      setFood(data.meals);
+      dispatch(searchFood(data.meals));
+    }
+    const data = await getDrinks(endpoint);
+    setDrink(data.drinks);
+    dispatch(searchDrink(data.drinks));
   };
 
-  // const checkItems = () => {
-  //   const { meals, drinks } = item;
-  //   console.log(meals);
-  //   if (meals.length === 1) {
-  //     const id = meals.idMeal;
-  //     console.log(id);
-  //     setRedirect(!redirect);
-  //     return redirect && <Redirect to={ `/foods/${id}` } />;
-  //   }
-  //   if (drinks.length === 1) {
-  //     const id = drinks[0].idDrink;
-  //     setRedirect(!redirect);
-  //     return redirect && <Redirect to={ `/drinks/${id}` } />;
-  //   }
-  // };
-  const checkItems = (arg) => {
-    console.log(arg);
+  const checkItems = () => {
+    if (food.length === 1) {
+      const id = food[0].idMeal;
+      return history.push(`/foods/${id}`);
+    }
+    if (drink.length === 1) {
+      const id = drink[0].idDrink;
+      return history.push(`/drinks/${id}`);
+    }
   };
+
+  useEffect(() => {
+    checkItems();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [food, drink]);
 
   const buttonRequestApi = () => {
     if (endPoint === 'ingredient') {
-      setItem(VerifyPage(`filter.php?i=${searchValueStore}`));
+      VerifyPage(`filter.php?i=${searchValueStore}`);
     }
     if (endPoint === 'name') {
-      setItem(VerifyPage(`search.php?s=${searchValueStore}`));
-      checkItems(item);
+      VerifyPage(`search.php?s=${searchValueStore}`);
     }
     if (endPoint === 'firstLetter') {
       if (searchValueStore.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
       }
-      setItem(VerifyPage(`search.php?f=${searchValueStore}`));
+      VerifyPage(`search.php?f=${searchValueStore}`);
     }
   };
   return (

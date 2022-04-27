@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import inputBar from '../redux/actions';
+import { inputBar } from '../redux/actions';
 
 function HeaderSearch() {
   const [disabled, setDisabled] = useState(false);
