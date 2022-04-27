@@ -3,3 +3,7 @@ export const PASSWORD_INPUT_TEST_ID = 'password-input';
 export const BTN_LOGIN_SUBMIT = 'login-submit-btn';
 export const USER_ADDRESS_EMAIL = 'email@email.com';
 export const USER_ADDRESS_EMAIL_OBJ = { email: 'email@email.com' };
+export const HEADER_PROFILE_TOP_BTN_ID = 'profile-top-btn';
+export const HEADER_SEARCH_TOP_BTN_ID = 'search-top-btn';
+export const HEADER_SEARCH_INPUT_ID = 'search-input';
+export const PAGE_TITLE_ID = 'page-title';

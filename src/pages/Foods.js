@@ -6,8 +6,7 @@ function Foods() {
   return (
     <div>
       <header>
-        <h3 data-testid="page-title">Foods</h3>
-        <Header />
+        <Header heading="Foods" />
         <HeaderSearch />
       </header>
     </div>
