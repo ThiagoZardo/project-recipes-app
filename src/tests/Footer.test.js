@@ -9,6 +9,7 @@ import {
   EXPLORE_BOTTON_TEST_ID,
   FOOD_BOTTON_TEST_ID,
 } from './helpers/constants';
+import Foods from '../pages/Foods';
 
 describe(`19. Verifica se existe o footer com os botões de drinks, 
 explore e food`, () => {
@@ -152,8 +153,7 @@ explorar e perfil`, () => {
 describe(`22. Verifica se redireciona a pessoa usuária para uma lista de cocktails 
 ao clicar no ícone de bebidas`, () => {
   it('Redireciona a pessoa usuária para a rota correta', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/foods');
+    const { history } = renderWithRouter(<Foods />);
     const imageDrinks = screen.getByAltText('Drinks');
     userEvent.click(imageDrinks);
     const { location: { pathname } } = history;
@@ -164,8 +164,7 @@ ao clicar no ícone de bebidas`, () => {
 describe(`23. Verifica se redireciona a pessoa usuária para a tela de explorar 
 ao clicar no ícone de exploração`, () => {
   it('Redireciona para a rota correta', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/foods');
+    const { history } = renderWithRouter(<Foods />);
     const imageExplore = screen.getByAltText('Explore');
     userEvent.click(imageExplore);
     const { location: { pathname } } = history;
@@ -176,8 +175,7 @@ ao clicar no ícone de exploração`, () => {
 describe(`24. Verifica se redireciona a pessoa usuária para uma lista de comidas 
 ao clicar no ícone de comidas`, () => {
   it('Redireciona para a rota correta', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/foods');
+    const { history } = renderWithRouter(<Foods />);
     const imageFood = screen.getByAltText('Food');
     userEvent.click(imageFood);
     const { location: { pathname } } = history;
