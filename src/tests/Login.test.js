@@ -97,6 +97,7 @@ describe('7. Verifica se o e-mail esta no localStorage.', () => {
     userEvent.type(inputEmail, email);
     userEvent.click(btnSubmit);
     const userLogin = localStorage.getItem(email);
+    console.log(userLogin);
     expect(userLogin).toBe(userLogin);
   });
 });
