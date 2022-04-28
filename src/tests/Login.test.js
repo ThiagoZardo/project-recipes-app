@@ -6,7 +6,7 @@ import Login from '../pages/Login';
 import renderWithRouter from '../renderWithRouter';
 import {
   BTN_LOGIN_SUBMIT, EMAIL_INPUT_TEST_ID,
-  PASSWORD_INPUT_TEST_ID, USER_ADDRESS_EMAIL
+  PASSWORD_INPUT_TEST_ID, USER_ADDRESS_EMAIL,
 } from './helpers/constants';
 
 describe('2. Verifica se existe email, password e login', () => {

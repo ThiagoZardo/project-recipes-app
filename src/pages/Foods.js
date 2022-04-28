@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import FoodsCard from '../components/FoodsCard';
 import Header from '../components/Header';
 import HeaderSearch from '../components/HeaderSearch';
+import Footer from '../components/Footer';
 
 function Foods() {
   let storeFood = useSelector((state) => state.search.foodsSearch);
@@ -26,6 +27,7 @@ function Foods() {
               />))
         )
       }
+      <Footer />
     </div>
   );
 }

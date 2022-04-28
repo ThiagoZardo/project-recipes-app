@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import DrinksCard from '../components/DrinksCard';
 import Header from '../components/Header';
 import HeaderSearch from '../components/HeaderSearch';
+import Footer from '../components/Footer';
 
 function Drinks() {
   let drinkStore = useSelector((state) => state.search.drinksSearch);
@@ -28,6 +29,7 @@ function Drinks() {
         )
 
       }
+      <Footer />
     </div>
   );
 }
