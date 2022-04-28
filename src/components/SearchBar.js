@@ -20,13 +20,19 @@ const SearchBar = (props) => {
       const data = await fetchFoods(endpoint);
       setFood(data.meals);
       dispatch(searchFood(data.meals));
+    } else {
+      const data = await getDrinks(endpoint);
+      setDrink(data.drinks);
+      dispatch(searchDrink(data.drinks));
     }
-    const data = await getDrinks(endpoint);
-    setDrink(data.drinks);
-    dispatch(searchDrink(data.drinks));
   };
 
   const checkItems = () => {
+    if (!food || !drink) {
+      dispatch(searchFood([]));
+      dispatch(searchDrink([]));
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
     if (food.length === 1) {
       const id = food[0].idMeal;
       return history.push(`/foods/${id}`);
@@ -43,12 +49,8 @@ const SearchBar = (props) => {
   }, [food, drink]);
 
   const buttonRequestApi = () => {
-    if (endPoint === 'ingredient') {
-      VerifyPage(`filter.php?i=${searchValueStore}`);
-    }
-    if (endPoint === 'name') {
-      VerifyPage(`search.php?s=${searchValueStore}`);
-    }
+    if (endPoint === 'ingredient') VerifyPage(`filter.php?i=${searchValueStore}`);
+    if (endPoint === 'name') VerifyPage(`search.php?s=${searchValueStore}`);
     if (endPoint === 'firstLetter') {
       if (searchValueStore.length > 1) {
         return global.alert('Your search must have only 1 (one) character');
