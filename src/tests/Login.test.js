@@ -1,16 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from '../pages/Login';
-
-import {
-  EMAIL_INPUT_TEST_ID,
-  PASSWORD_INPUT_TEST_ID,
-  BTN_LOGIN_SUBMIT,
-  USER_ADDRESS_EMAIL,
-} from './helpers/constants';
-import renderWithRouter from '../renderWithRouter';
+import React from 'react';
 import App from '../App';
+import Login from '../pages/Login';
+import renderWithRouter from '../renderWithRouter';
+import {
+  BTN_LOGIN_SUBMIT, EMAIL_INPUT_TEST_ID,
+  PASSWORD_INPUT_TEST_ID, USER_ADDRESS_EMAIL,
+} from './helpers/constants';
 
 describe('2. Verifica se existe email, password e login', () => {
   it('Verifica se existe email', () => {
