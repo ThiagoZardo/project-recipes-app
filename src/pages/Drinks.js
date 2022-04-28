@@ -1,15 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import DrinksCard from '../components/DrinksCard';
 import Header from '../components/Header';
 import HeaderSearch from '../components/HeaderSearch';
 import Footer from '../components/Footer';
+import { drinkApi } from '../redux/actions';
 
 function Drinks() {
   let drinkStore = useSelector((state) => state.search.drinksSearch);
+  const dispatch = useDispatch();
   console.log(drinkStore);
   if (!drinkStore) drinkStore = [];
   const drinkArray = 12;
+
+  useEffect(() => {
+    function fetchData() {
+      drinkApi(dispatch);
+    }
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <header>
