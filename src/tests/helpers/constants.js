@@ -6,3 +6,7 @@ export const INGREDIENT_SEARCH_RADIO = 'ingredient-search-radio';
 export const NAME_SEARCH_RADIO = 'name-search-radio';
 export const FIRST_LETTER_SEARCH_RADIO = 'first-letter-search-radio';
 export const EXEC_SEARCH_BTN = 'exec-search-btn';
+export const PROFILE_EMAIL = 'profile-email';
+export const PROFILE_DONE_BTN = 'profile-done-btn';
+export const PROFILE_FAVORITE_BTN = 'profile-favorite-btn';
+export const PROFILE_LOGOUT_BTN = 'profile-logout-btn';
