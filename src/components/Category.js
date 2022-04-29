@@ -42,6 +42,7 @@ function Category(props) {
       dispatch(searchFood(backupItems));
       dispatch(searchDrink(backupItems));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredItems]);
 
   const fCategories = foodCategories.slice(0, categoriesCount).map(({ strCategory }) => (
@@ -80,14 +81,9 @@ function Category(props) {
       {strCategory}
     </button>
   ));
-  console.log(backupCategory);
-  console.log(backupItems);
-
-  // const filterAll =
 
   return (
     <div>
-      {heading === 'Foods' ? (fCategories) : dCategories}
       {
         heading !== 'Explore Nationalities' && (
           <button
@@ -102,6 +98,7 @@ function Category(props) {
           </button>
         )
       }
+      {heading === 'Foods' ? (fCategories) : dCategories}
     </div>
   );
 }
