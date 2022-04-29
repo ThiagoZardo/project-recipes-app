@@ -19,3 +19,12 @@ explore e food`, () => {
     expect(exploreDrinks).toBeInTheDocument();
   });
 });
+
+describe(`68. Verifica se existe 2 botões com os textos esperados, 
+explore e food`, () => {
+  it('Os botões comtém os textos Explore Foods e Explore Drinks.', () => {
+    renderWithRouter(<Explore />);
+    expect(screen.getByRole('button', { name: 'Explore Foods' }));
+    expect(screen.getByRole('button', { name: 'Explore Drinks' }));
+  });
+});
