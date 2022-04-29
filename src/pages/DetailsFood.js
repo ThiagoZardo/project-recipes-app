@@ -1,30 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import meal from '../tests/mocks/meals';
+import HeaderDetails from '../components/HeaderDetails';
+import PrepareMethod from '../components/PrepareMethod';
+import DrinkRecomended from '../components/DrinkRecomended';
+import RecipeButton from '../components/RecipeButton';
 import {
   favoriteRecipes,
   inProgressRecipes,
   doneRecipes,
 } from '../tests/mocks/localStorageMocks';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
-import { fetchMeals } from '../helpers';
-import getSixMeals from '../functions/getSixRecipes';
+/* import { fetchMeals } from '../helpers'; */
+/* import getSixMeals from '../functions/getSixRecipes'; */
+import { fetchDrinks } from '../helpers';
+import getSixDrinks from '../functions/getSixDrinks';
 
 function DetailsFood() {
   const recipeIngredients = filterIngredients(meal);
   const recipeMeasures = filterMeasures(meal);
   const videoUrl = meal.strYoutube.replace('watch?v=', 'embed/');
 
-  const [foods, setFoods] = useState([]);
+  /* const [foods, setFoods] = useState([]); */
+  const [drinks, setDrinks] = useState([]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const getFoods = async () => {
       const allFoods = await fetchMeals();
       const sixFoods = getSixMeals(allFoods.meals);
       setFoods(sixFoods);
     };
     getFoods();
+  }, []); */
+
+  useEffect(() => {
+    const getDrinks = async () => {
+      const allDrinks = await fetchDrinks();
+      const sixDrinks = getSixDrinks(allDrinks.drinks);
+      setDrinks(sixDrinks);
+    };
+    getDrinks();
   }, []);
-  // console.log(foods);
 
   return (
     <main>
@@ -40,17 +55,25 @@ function DetailsFood() {
         recipeVideo={ videoUrl }
       />
       {
-        foods.map((food) => (
+        /* foods.map((food) => (
           <Recomended
             key={ food.idMeal }
             recipeImage={ food.strMealThumb }
             recipeTitle={ food.strMeal }
             recipeCategory={ food.strCategory }
+          /> */
+        drinks.map((drinkRecomended) => (
+          <DrinkRecomended
+            key={ drinkRecomended.idDrink }
+            recipeImage={ drinkRecomended.strDrinkThumb }
+            recipeAlcoholic={ drinkRecomended.strAlcoholic }
+            recipeTitle={ drinkRecomended.strDrink }
           />
+
         ))
       }
       <RecipeButton
-        idMeal={ meal.idMeal }
+        id={ meal.idMeal }
         favoriteRecipes={ favoriteRecipes }
         inProgressRecipes={ inProgressRecipes }
         doneRecipes={ doneRecipes }
