@@ -34,19 +34,19 @@ function mockFetch(data) {
 
 describe('12. Implemente os elementos da barra de busca', () => {
   it('Existe um radio button com data-testid ingredient-search-radio', () => {
-    renderWithRouter(<SearchBar />);
+    renderWithRouter(<SearchBar heading="test" />);
     const ingredientSearchRadio = screen.getByTestId(INGREDIENT_SEARCH_RADIO);
     expect(ingredientSearchRadio).toBeInTheDocument();
   });
 
   it('Existe um radio button com data-testid name-search-radio', () => {
-    renderWithRouter(<SearchBar />);
+    renderWithRouter(<SearchBar heading="test" />);
     const nameSearchRadio = screen.getByTestId(NAME_SEARCH_RADIO);
     expect(nameSearchRadio).toBeInTheDocument();
   });
 
   it('Existe um radio button com data-testid first-letter-search-radio', () => {
-    renderWithRouter(<SearchBar />);
+    renderWithRouter(<SearchBar heading="test" />);
     const firstLetterSearchRadio = screen.getByTestId(FIRST_LETTER_SEARCH_RADIO);
     expect(firstLetterSearchRadio).toBeInTheDocument();
   });
@@ -62,7 +62,7 @@ describe('12. Implemente os elementos da barra de busca', () => {
 
 describe('13. Verifica se os endpoints estão corretos', () => {
   it('Verifica o end point ingredients', () => {
-    renderWithRouter(<SearchBar />);
+    renderWithRouter(<SearchBar heading="test" />);
     const execSearchBtn = screen.getByTestId(EXEC_SEARCH_BTN);
     expect(execSearchBtn).toBeInTheDocument();
   });
@@ -90,7 +90,7 @@ describe('14. Verifica se a busca na API Meals é chamado corretamente', () => {
     userEvent.click(screenName);
     const buttonSearch = screen.getByTestId(EXEC_SEARCH_BTN);
     userEvent.click(buttonSearch);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     global.fetch.mockClear();
   });
   it('Verifica o radio First Letter', () => {
@@ -102,7 +102,7 @@ describe('14. Verifica se a busca na API Meals é chamado corretamente', () => {
     userEvent.click(screenFirstLetter);
     const buttonSearch = screen.getByTestId(EXEC_SEARCH_BTN);
     userEvent.click(buttonSearch);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     global.fetch.mockClear();
   });
   it('Verifica se o radio Letter com mais uma letra o alert é chamado', () => {
@@ -136,7 +136,7 @@ describe('15. Verifica se a busca na API Drinks é chamado corretamente', () => 
     userEvent.click(screenIngredient);
     const buttonSearch = screen.getByTestId(EXEC_SEARCH_BTN);
     userEvent.click(buttonSearch);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     global.fetch.mockClear();
   });
   it('Verifica o radio Name', () => {
@@ -148,7 +148,7 @@ describe('15. Verifica se a busca na API Drinks é chamado corretamente', () => 
     userEvent.click(screenName);
     const buttonSearch = screen.getByTestId(EXEC_SEARCH_BTN);
     userEvent.click(buttonSearch);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     global.fetch.mockClear();
   });
   it('Verifica o radio First Letter', () => {
@@ -160,7 +160,7 @@ describe('15. Verifica se a busca na API Drinks é chamado corretamente', () => 
     userEvent.click(screenFirstLetter);
     const buttonSearch = screen.getByTestId(EXEC_SEARCH_BTN);
     userEvent.click(buttonSearch);
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledTimes(2);
     global.fetch.mockClear();
   });
   it('Verifica se o radio Letter com mais uma letra o alert é chamado', () => {
@@ -240,7 +240,7 @@ describe('16. Caso Apenas um item seja encontrado, redirecione para detalhes', (
 //     userEvent.click(screenName);
 //     const buttonSearch = screen.getByTestId(EXEC_SEARCH_BTN);
 //     userEvent.click(buttonSearch);
-//     const getByheading = screen.findAllByRole('img');
-//     expect(getByheading).toHaveLength(12);
+//     const getByheading = screen.getAllByRole('heading');
+//     expect(getByheading).toHaveLength(14);
 //   });
 // });

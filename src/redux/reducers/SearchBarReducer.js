@@ -13,10 +13,12 @@ const search = (state = INITIAL_STATE, action) => {
     };
   case 'GET_FOOD':
     return {
+      ...state,
       foodsSearch: action.food,
     };
   case 'GET_DRINK':
     return {
+      ...state,
       drinksSearch: action.drink,
     };
   default:
