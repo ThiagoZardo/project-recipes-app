@@ -27,17 +27,15 @@ function Drinks() {
         <HeaderSearch />
       </header>
       {
-        drinkStore.length > 1 && (
-          drinkStore.slice(0, drinkArray)
-            .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-              <DrinksCard
-                key={ idDrink }
-                strDrink={ strDrink }
-                strDrinkThumb={ strDrinkThumb }
-                index={ index }
-              />))
-        )
-
+        drinkStore.slice(0, drinkArray)
+          .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+            <DrinksCard
+              key={ idDrink }
+              strDrink={ strDrink }
+              strDrinkThumb={ strDrinkThumb }
+              index={ index }
+              idDrink={ idDrink }
+            />))
       }
       <Footer />
     </div>

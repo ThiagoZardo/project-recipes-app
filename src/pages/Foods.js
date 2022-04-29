@@ -28,16 +28,15 @@ function Foods() {
         <HeaderSearch />
       </header>
       {
-        storeFood.length > 1 && (
-          storeFood.slice(0, mealsArray)
-            .map(({ strMeal, strMealThumb, idMeal }, index) => (
-              <FoodsCard
-                key={ idMeal }
-                strMeal={ strMeal }
-                strMealThumb={ strMealThumb }
-                index={ index }
-              />))
-        )
+        storeFood.slice(0, mealsArray)
+          .map(({ strMeal, strMealThumb, idMeal }, index) => (
+            <FoodsCard
+              key={ idMeal }
+              strMeal={ strMeal }
+              strMealThumb={ strMealThumb }
+              index={ index }
+              idMeal={ idMeal }
+            />))
       }
       <Footer />
     </div>

@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   fetchDrinkByCategory,
   fetchDrinkCategory,
+  fetchDrinks,
   fetchFoodByCategory,
   fetchFoodCategory,
+  fetchMeals,
 } from '../helpers';
+import { searchDrink, searchFood } from '../redux/actions';
 
 function Category(props) {
   const { heading } = props;
@@ -14,7 +18,9 @@ function Category(props) {
   const [foodCategories, setFoodCategory] = useState([]);
   const [drinkCategories, setDrinkCategory] = useState([]);
   const [filteredItems, setItemFilter] = useState([]);
-  const items = filteredItems.slice(0, maxResults);
+  const [backupItems, setBackupItems] = useState([]);
+  const [backupCategory, setBackupCategory] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -24,13 +30,33 @@ function Category(props) {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (backupCategory.length > 2) {
+      setBackupCategory([backupCategory[0]]);
+      // setItemFilter(backupCategory)
+    }
+    if (backupCategory[0] !== backupCategory[1]) {
+      dispatch(searchFood(filteredItems));
+      dispatch(searchDrink(filteredItems));
+    } else {
+      dispatch(searchFood(backupItems));
+      dispatch(searchDrink(backupItems));
+    }
+  }, [filteredItems]);
+
   const fCategories = foodCategories.slice(0, categoriesCount).map(({ strCategory }) => (
     <button
       type="button"
       key={ strCategory }
       value={ strCategory }
       data-testid={ `${strCategory}-category-filter` }
-      onClick={ async () => setItemFilter(await fetchFoodByCategory(strCategory)) }
+      onClick={ async () => {
+        const data = await fetchFoodByCategory(strCategory);
+        const backup = await fetchMeals();
+        setBackupCategory([strCategory, ...backupCategory]);
+        setItemFilter(data.slice(0, maxResults));
+        setBackupItems(backup.meals);
+      } }
     >
       {strCategory}
     </button>
@@ -40,16 +66,44 @@ function Category(props) {
     <button
       key={ strCategory }
       type="button"
+      value={ strCategory }
       id={ strCategory }
       data-testid={ `${strCategory}-category-filter` }
-      onClick={ async () => setItemFilter(await fetchDrinkByCategory(strCategory)) }
+      onClick={ async () => {
+        const data = await fetchDrinkByCategory(strCategory);
+        const backup = await fetchDrinks();
+        setBackupCategory([strCategory, ...backupCategory]);
+        setItemFilter(data.slice(0, maxResults));
+        setBackupItems(backup.drinks);
+      } }
     >
       {strCategory}
     </button>
   ));
-  console.log(items);
+  console.log(backupCategory);
+  console.log(backupItems);
 
-  return <div>{heading === 'Foods' ? fCategories : dCategories}</div>;
+  // const filterAll =
+
+  return (
+    <div>
+      {heading === 'Foods' ? (fCategories) : dCategories}
+      {
+        heading !== 'Explore Nationalities' && (
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => {
+              dispatch(searchFood(backupItems));
+              dispatch(searchDrink(backupItems));
+            } }
+          >
+            All
+          </button>
+        )
+      }
+    </div>
+  );
 }
 
 Category.propTypes = {
