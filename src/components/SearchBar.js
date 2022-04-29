@@ -1,19 +1,52 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchFoods } from '../helpers';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
+import { fetchFoods, getDrinks } from '../helpers';
+import { searchDrink, searchFood } from '../redux/actions';
 
 const SearchBar = (props) => {
   const { heading } = props;
-  console.log(heading);
   const [endPoint, setEndPoint] = useState({});
+  const [food, setFood] = useState([]);
+  const [drink, setDrink] = useState([]);
   const searchValueStore = useSelector((state) => state.search.searchValue);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const VerifyPage = async (endpoint) => {
-    console.log(heading);
-    if (heading === 'Foods') await fetchFoods(endpoint);
-    // await fetchDrinks(endpoint);
+    if (heading === 'Foods') {
+      const data = await fetchFoods(endpoint);
+      setFood(data.meals);
+      dispatch(searchFood(data.meals));
+    } else {
+      const data = await getDrinks(endpoint);
+      setDrink(data.drinks);
+      dispatch(searchDrink(data.drinks));
+    }
   };
+
+  const checkItems = () => {
+    if (!food || !drink) {
+      dispatch(searchFood([]));
+      dispatch(searchDrink([]));
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (food.length === 1) {
+      const id = food[0].idMeal;
+      return history.push(`/foods/${id}`);
+    }
+    if (drink.length === 1) {
+      const id = drink[0].idDrink;
+      return history.push(`/drinks/${id}`);
+    }
+  };
+
+  useEffect(() => {
+    checkItems();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [food, drink]);
 
   const buttonRequestApi = () => {
     if (endPoint === 'ingredient') VerifyPage(`filter.php?i=${searchValueStore}`);
@@ -25,7 +58,6 @@ const SearchBar = (props) => {
       VerifyPage(`search.php?f=${searchValueStore}`);
     }
   };
-
   return (
     <section>
       <form>

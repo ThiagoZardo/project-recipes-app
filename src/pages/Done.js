@@ -5,8 +5,7 @@ function Done() {
   return (
     <div>
       <header>
-        <h3 data-testid="page-title">Done Recipes</h3>
-        <Header />
+        <Header heading="Done Recipes" />
       </header>
     </div>
   );
