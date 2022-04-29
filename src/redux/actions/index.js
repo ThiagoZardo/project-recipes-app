@@ -1,4 +1,4 @@
-import { fetchMeals, fetchDrinks } from '../../helpers';
+import { fetchDrinks, fetchMeals } from '../../helpers';
 
 export const inputBar = (nameValue) => ({
   type: 'SET_END_POINT',
@@ -11,11 +11,11 @@ export const searchDrink = (drink) => ({ type: 'GET_DRINK', drink });
 export const foodApi = async (dispatch) => {
   const data = await fetchMeals();
   console.log(data.meals);
-  await dispatch(searchFood(data.meals));
+  dispatch(searchFood(data.meals));
 };
 
 export const drinkApi = async (dispatch) => {
   const data = await fetchDrinks();
   console.log(data.drinks);
-  await dispatch(searchDrink(data.drinks));
+  dispatch(searchDrink(data.drinks));
 };
