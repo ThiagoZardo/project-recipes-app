@@ -1,5 +1,5 @@
 import React from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import PropTypes from 'prop-types';
 
 function DrinkRecomended(props) {
   const { recipeImage, recipeAlcoholic, recipeTitle, key } = props;
@@ -21,11 +21,11 @@ function DrinkRecomended(props) {
   );
 }
 
-export default DrinkRecomended;
-
 DrinkRecomended.propTypes = {
-  recipeImage: propTypes.shape().isRequired,
-  recipeAlcoholic: propTypes.shape().isRequired,
-  recipeTitle: propTypes.shape().isRequired,
-  key: propTypes.shape().isRequired,
+  recipeImage: PropTypes.string.isRequired,
+  recipeAlcoholic: PropTypes.string.isRequired,
+  recipeTitle: PropTypes.string.isRequired,
+  key: PropTypes.string.isRequired,
 };
+
+export default DrinkRecomended;

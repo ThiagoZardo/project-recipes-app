@@ -1,8 +1,14 @@
 import React from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import PropTypes from 'prop-types';
+/* import clipboardCopy from 'clipboard-copy'; */
 
 function HeaderDetails(props) {
   const { recipeImage, recipeTitle, recipeCategory } = props;
+
+  const shareImage = () => {
+    /* copy(); */
+  };
+
   return (
     <>
       <img
@@ -17,13 +23,14 @@ function HeaderDetails(props) {
       </h3>
       <input
         type="image"
-        src="images/drinkIcon.svg"
+        src="images/shareIcon.svg"
         alt="shareIcon"
         data-testid="share-btn"
+        onClick={ shareImage }
       />
       <input
         type="image"
-        src="images/blackHeartIcon.svg"
+        src="images/whiteHeartIcon.svg"
         alt="favorite heart"
         data-testid="favorite-btn"
       />
@@ -36,10 +43,10 @@ function HeaderDetails(props) {
   );
 }
 
-export default HeaderDetails;
-
 HeaderDetails.propTypes = {
-  recipeImage: propTypes.shape().isRequired,
-  recipeTitle: propTypes.shape().isRequired,
-  recipeCategory: propTypes.shape().isRequired,
+  recipeImage: PropTypes.string.isRequired,
+  recipeTitle: PropTypes.string.isRequired,
+  recipeCategory: PropTypes.string.isRequired,
 };
+
+export default HeaderDetails;

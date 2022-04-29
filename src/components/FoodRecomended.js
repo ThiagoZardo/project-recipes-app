@@ -1,5 +1,5 @@
 import React from 'react';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import PropTypes from 'prop-types';
 
 function FoodRecomended(props) {
   const { recipeImage, recipeCategory, recipeTitle, key } = props;
@@ -24,8 +24,8 @@ function FoodRecomended(props) {
 export default FoodRecomended;
 
 FoodRecomended.propTypes = {
-  recipeImage: propTypes.shape().isRequired,
-  recipeCategory: propTypes.shape().isRequired,
-  recipeTitle: propTypes.shape().isRequired,
-  key: propTypes.shape().isRequired,
+  recipeImage: PropTypes.string.isRequired,
+  recipeCategory: PropTypes.string.isRequired,
+  recipeTitle: PropTypes.string.isRequired,
+  key: PropTypes.string.isRequired,
 };
