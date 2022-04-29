@@ -48,6 +48,16 @@ export const fetchFoodCategory = async () => {
   }
 };
 
+export const getSurpriseFoods = async () => {
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const fetchDrinkCategory = async () => {
   try {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
@@ -77,6 +87,15 @@ export const fetchDrinkByCategory = async (category) => {
     );
     const data = await response.json();
     return data.drinks;
+  } catch (error) {
+    return error;
+  }
+};
+export const getSurpriseDrinks = async () => {
+  try {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+    const data = await response.json();
+    return data;
   } catch (error) {
     return error;
   }

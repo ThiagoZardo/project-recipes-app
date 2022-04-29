@@ -167,8 +167,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
   });
 
   it('Caso apenas uma bebida seja encontrada, deve-se ir para sua rota de detalhes', () => {
-    cy.
-    ('http://localhost:3000/drinks', {
+    cy.visit('http://localhost:3000/drinks', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
       },

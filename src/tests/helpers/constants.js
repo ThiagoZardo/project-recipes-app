@@ -21,3 +21,6 @@ export const PROFILE_FAVORITE_BTN = 'profile-favorite-btn';
 export const PROFILE_LOGOUT_BTN = 'profile-logout-btn';
 export const EXPLORE_FOODS = 'explore-foods';
 export const EXPLORE_DRINKS = 'explore-drinks';
+export const EXPLORE_INGREDIENTS = 'explore-by-ingredient';
+export const EXPLORE_NATIONALITY = 'explore-by-nationality';
+export const EXPLORE_SURPRISE = 'explore-surprise';
