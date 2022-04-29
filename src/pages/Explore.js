@@ -8,6 +8,21 @@ function Explore() {
       <header>
         <Header heading="Explore" />
       </header>
+      <div>
+        <button
+          type="button"
+          data-testid="explore-foods"
+        >
+          Explore Foods
+        </button>
+
+        <button
+          type="button"
+          data-testid="explore-drinks"
+        >
+          Explore Drinks
+        </button>
+      </div>
       <Footer />
     </div>
   );
