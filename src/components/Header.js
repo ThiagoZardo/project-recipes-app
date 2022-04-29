@@ -1,6 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Category from './Category';
 import SearchBar from './SearchBar';
 
 function Header(props) {
@@ -17,6 +18,12 @@ function Header(props) {
         onClick={ () => history.push('/profile') }
       />
       <SearchBar heading={ heading } />
+      {
+        heading === 'Foods' && <Category heading={ heading } />
+      }
+      {
+        heading === 'Drinks' && <Category heading={ heading } />
+      }
     </div>
   );
 }
