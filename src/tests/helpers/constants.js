@@ -19,3 +19,5 @@ export const PROFILE_EMAIL = 'profile-email';
 export const PROFILE_DONE_BTN = 'profile-done-btn';
 export const PROFILE_FAVORITE_BTN = 'profile-favorite-btn';
 export const PROFILE_LOGOUT_BTN = 'profile-logout-btn';
+export const EXPLORE_FOODS = 'explore-foods';
+export const EXPLORE_DRINKS = 'explore-drinks';
