@@ -11,21 +11,12 @@ function PrepareMethod(props) {
       <section>
         <p>Ingredientes</p>
         <p>
-          { recipeIngredients.map((ingredient, key) => (
-            <scan
-              data-testid={ `${key}-ingredient-name-and-measure` }
-              key={ key }
-            >
-              {ingredient}
-            </scan>
-          ))}
-          { recipeMeasures.map((measure, key) => (
-            <scan
-              data-testid={ `${key}-ingredient-name-and-measure` }
-              key={ key }
-            >
-              {measure}
-            </scan>
+          { recipeIngredients.map((ingredient, index) => (
+            <p key={ index }>
+              <scan>{ ingredient }</scan>
+              {' - '}
+              <scan>{ recipeMeasures[index] }</scan>
+            </p>
           ))}
         </p>
       </section>

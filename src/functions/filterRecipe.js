@@ -4,6 +4,7 @@ export const filterIngredients = (meal) => {
     arrayIngredient[0].includes('strIngredient')
     && arrayIngredient[1] !== '' && arrayIngredient[1] !== null
   ));
+  console.log('AQUUIIIII', mealArray);
   const ingredientsArray = mealCorrectArray.map((ingredient) => (
     ingredient[1]
   ));

@@ -58,55 +58,6 @@ function DetailsDrink() {
         inProgressRecipes={ inProgressRecipes }
         doneRecipes={ doneRecipes }
       />
-      {/* <img
-        src="https://www.themealdb.com/images/media/meals/58oia61564916529.jpg"
-        alt="Meal"
-        width="360"
-        height="128"
-        data-testid="recipe-photo"
-      />
-      <h3 data-testid="recipe-title">
-        Título da Receita
-      </h3>
-      <input
-        type="image"
-        src="images/drinkIcon.svg"
-        alt="shareIcon"
-        data-testid="share-btn"
-      />
-      <input
-        type="image"
-        src="images/blackHeartIcon.svg"
-        alt="favorite heart"
-        data-testid="favorite-btn"
-      />
-      <h5
-        data-testid="recipe-category"
-      >
-        Categoria da Receita
-      </h5>
-      <section>
-        <p>Ingredientes</p>
-        <p
-          data-testid="index-ingredient-name-and-measure"
-        >
-          lista de ingredientes
-        </p>
-      </section>
-      <article>
-        <p>Instruções</p>
-        <p
-          data-testid="instructions"
-        >
-          lista de ingredientes
-        </p>
-        <iframe
-          width="420"
-          height="315"
-          src="https://www.youtube.com/watch?v=VVnZd8A84z4"
-          title="Vídeo da Receita"
-        />
-      </article> */}
     </main>
   );
 }
