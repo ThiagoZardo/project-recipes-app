@@ -17,7 +17,7 @@ import {
   INGREDIENT_SEARCH_RADIO,
   NAME_SEARCH_RADIO,
   PASSWORD_INPUT_TEST_ID,
-  USER_ADDRESS_EMAIL
+  USER_ADDRESS_EMAIL,
 } from './helpers/constants';
 import drink from './mocks/drinks';
 import meal from './mocks/meals';

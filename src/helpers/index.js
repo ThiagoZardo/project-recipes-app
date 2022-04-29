@@ -60,23 +60,24 @@ export const fetchDrinkCategory = async () => {
 
 export const fetchFoodByCategory = async (category) => {
   try {
-    const res = await fetch(`www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-    const data = await res.json();
-    console.log('Chamando');
-    console.log(data);
-    return data;
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`,
+    );
+    const data = await response.json();
+    return data.meals;
   } catch (error) {
     return error;
   }
 };
 
-// export const fetchDrinkByCategory = async (category) => {
-//   try {
-//     const r = await fetch(`www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
-//     const data = await r.json();
-//     console.log(data.drinks);
-//     return data.drinks;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+export const fetchDrinkByCategory = async (category) => {
+  try {
+    const response = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`,
+    );
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    return error;
+  }
+};

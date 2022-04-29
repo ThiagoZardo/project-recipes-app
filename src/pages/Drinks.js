@@ -9,7 +9,6 @@ import { drinkApi } from '../redux/actions';
 function Drinks() {
   let drinkStore = useSelector((state) => state.search.drinksSearch);
   const dispatch = useDispatch();
-  console.log(drinkStore);
   if (!drinkStore) drinkStore = [];
   const drinkArray = 12;
 
