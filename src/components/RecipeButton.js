@@ -4,15 +4,29 @@ import { useHistory } from 'react-router-dom';
 import '../RecipeButton.css';
 
 function RecipeButton(props) {
-  const { id, continueRecipe, type } = props;
+  const { id, continueRecipe, type, nationality, category, alcoholicOrNot, name, image } = props;
   const history = useHistory();
 
   const goToRecipeInProgress = () => {
-    if (type === 'meal') {
+    const objectProgress = {
+      id,
+      type,
+      nationality,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+    };
+
+    if (type !== 'meal') {
       history.push(`/foods/${id}/in-progress`);
     } else {
       history.push(`/drinks/${id}/in-progress`);
     }
+
+    const getItem = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify([...getItem, objectProgress]));
   };
 
   return (
@@ -26,7 +40,7 @@ function RecipeButton(props) {
         continueRecipe ? (
           <span>Continue Recipe</span>
         ) : (
-          <span>Start Recipe</span>
+          <span data-testid="start-recipe-btn">Start Recipe</span>
         )
       }
     </button>

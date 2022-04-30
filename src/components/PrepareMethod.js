@@ -17,7 +17,10 @@ function PrepareMethod(props) {
       <section>
         <p>Ingredientes</p>
         { recipeIngredients.map((ingredient, index) => (
-          <p key={ index }>
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
             <span>{ ingredient }</span>
             {' - '}
             <span>{ recipeMeasures[index] }</span>
@@ -38,6 +41,7 @@ function PrepareMethod(props) {
               height="315"
               src={ recipeVideo }
               title="Vídeo da Receita"
+              data-testid="video"
             />
           )
         }

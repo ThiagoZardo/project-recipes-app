@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-/* import clipboardCopy from 'clipboard-copy'; */
+// import { copy } from 'fs-extra';
 
 function HeaderDetails(props) {
   const { recipeImage, recipeTitle, recipeCategory } = props;
+  // strSource
 
   const shareImage = () => {
-    /* copy(); */
+    // copy(strSource);
   };
 
   return (
-    <>
+    <div>
       <img
         src={ recipeImage }
         alt="Meal"
@@ -39,7 +40,7 @@ function HeaderDetails(props) {
       >
         { recipeCategory}
       </h5>
-    </>
+    </div>
   );
 }
 

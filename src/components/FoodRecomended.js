@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function FoodRecomended(props) {
-  const { recipeImage, recipeCategory, recipeTitle, key } = props;
+  const { recipeImage, recipeCategory, recipeTitle } = props;
   return (
-    <section data-testid={ `${key}-recomendation-card` }>
+    <section data-testid="0-recomendation-card">
       <img
         src={ recipeImage }
         alt="Meal"
@@ -27,5 +27,4 @@ FoodRecomended.propTypes = {
   recipeImage: PropTypes.string.isRequired,
   recipeCategory: PropTypes.string.isRequired,
   recipeTitle: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired,
 };

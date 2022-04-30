@@ -5,16 +5,16 @@ import PrepareMethod from '../components/PrepareMethod';
 import FoodRecomended from '../components/FoodRecomended';
 import RecipeButton from '../components/RecipeButton';
 // mocks de localStorage
-import {
-  favoriteRecipes,
-  inProgressRecipes,
-  doneRecipes,
-} from '../tests/mocks/localStorageMocks';
+// import {
+//   favoriteRecipes,
+//   inProgressRecipes,
+//   doneRecipes,
+// } from '../tests/mocks/localStorageMocks';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
-import {
-  checkIfDrinkIsInProgress,
-  checkIfRecipeIsDone,
-} from '../functions/checkLocalStorage';
+// import {
+//   checkIfDrinkIsInProgress,
+//   checkIfRecipeIsDone,
+// } from '../functions/checkLocalStorage';
 import { fetchDrinkById, fetchMeals } from '../helpers';
 import getSixMeals from '../functions/getSixRecipes';
 
@@ -22,9 +22,9 @@ function DetailsDrink(props) {
   const { match } = props;
   const { params } = match;
   // coloca o mock de doneRecipes no localStorage
-  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   // coloca o mock de inProgressRecipes no localStorage
-  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 
   const [foods, setFoods] = useState([]);
   const [drink, setDrink] = useState({});
@@ -40,7 +40,7 @@ function DetailsDrink(props) {
       setDrink(drinkObject.drinks[0]);
     };
     getFoods();
-  }, [params]);
+  }, []);
 
   useEffect(() => {
     if (Object.values(drink).length) {
@@ -57,7 +57,7 @@ function DetailsDrink(props) {
         recipeCategory={ drink.strCategory }
       />
       {
-        console.log(checkIfRecipeIsDone(+(params.idDrink)))
+        // console.log(checkIfRecipeIsDone(+(params.idDrink)))
       }
       <PrepareMethod
         recipeIngredients={ recipeIngredients }
@@ -75,16 +75,14 @@ function DetailsDrink(props) {
         ))
       }
       {
-        checkIfRecipeIsDone(+(params.idDrink)) && (
-          <RecipeButton
-            id={ drink.idDrink }
-            type="drink"
-            favoriteRecipes={ favoriteRecipes }
-            inProgressRecipes={ inProgressRecipes }
-            doneRecipes={ doneRecipes }
-            continueRecipe={ checkIfDrinkIsInProgress(params.idDrink) }
-          />
-        )
+        <RecipeButton
+          id={ drink.idDrink }
+          type="drink"
+          // favoriteRecipes={ favoriteRecipes }
+          // inProgressRecipes={ inProgressRecipes }
+          // doneRecipes={ doneRecipes }
+          continueRecipe={ false }
+        />
       }
     </main>
   );

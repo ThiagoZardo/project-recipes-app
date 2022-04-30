@@ -5,24 +5,25 @@ import PrepareMethod from '../components/PrepareMethod';
 import DrinkRecomended from '../components/DrinkRecomended';
 import RecipeButton from '../components/RecipeButton';
 // mocks de localStorage
-import {
-  favoriteRecipes,
-  inProgressRecipes,
-  doneRecipes,
-} from '../tests/mocks/localStorageMocks';
+// import {
+//   favoriteRecipes,
+//   inProgressRecipes,
+//   doneRecipes,
+// } from '../tests/mocks/localStorageMocks';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
-import {
-  checkIfMealIsInProgress,
-  checkIfRecipeIsDone,
-} from '../functions/checkLocalStorage';
+// import {
+//   checkIfMealIsInProgress,
+//   checkIfRecipeIsDone,
+// } from '../functions/checkLocalStorage';
 import { fetchDrinks, fetchFoodById } from '../helpers';
 import getSixDrinks from '../functions/getSixDrinks';
 
 function DetailsFood(props) {
   const { match } = props;
   const { params } = match;
+  console.log(params.idMeal);
   // coloca o mock de doneRecipes no localStorage
-  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   // coloca o mock de inProgressRecipes no localStorage
 
   const [drinks, setDrinks] = useState([]);
@@ -37,10 +38,14 @@ function DetailsFood(props) {
       const sixDrinks = getSixDrinks(allDrinks.drinks);
       setDrinks(sixDrinks);
       const foodObject = await fetchFoodById(params.idMeal);
+      console.log(foodObject);
       setMeal(foodObject.meals[0]);
+      if (!localStorage.getItem('inProgressRecipes')) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify([]));
+      }
     };
     getDrinks();
-  }, [params]);
+  }, []);
 
   useEffect(() => {
     if (Object.values(meal).length) {
@@ -49,21 +54,26 @@ function DetailsFood(props) {
       setvideoUrl(meal.strYoutube.replace('watch?v=', 'embed/'));
     }
   }, [meal]);
-
   return (
     <main>
-      <HeaderDetails
-        recipeImage={ meal.strMealThumb }
-        recipeTitle={ meal.strMeal }
-        recipeCategory={ meal.strCategory }
-      />
-      <PrepareMethod
-        recipeIngredients={ recipeIngredients }
-        recipeMeasures={ recipeMeasures }
-        recipeInstructions={ meal.strInstructions }
-        recipeVideo={ videoUrl }
-        willShowVideo
-      />
+      {
+        meal !== {} && (
+          <>
+            <HeaderDetails
+              recipeImage={ meal.strMealThumb }
+              recipeTitle={ meal.strMeal }
+              recipeCategory={ meal.strCategory }
+            />
+            <PrepareMethod
+              recipeIngredients={ recipeIngredients }
+              recipeMeasures={ recipeMeasures }
+              recipeInstructions={ meal.strInstructions }
+              recipeVideo={ videoUrl }
+              willShowVideo
+            />
+          </>
+        )
+      }
       {
         drinks.map((drinkRecomended) => (
           <DrinkRecomended
@@ -76,16 +86,19 @@ function DetailsFood(props) {
         ))
       }
       {
-        checkIfRecipeIsDone(params.idMeal) && (
-          <RecipeButton
-            id={ meal.idMeal }
-            type="meal"
-            favoriteRecipes={ favoriteRecipes }
-            inProgressRecipes={ inProgressRecipes }
-            doneRecipes={ doneRecipes }
-            continueRecipe={ checkIfMealIsInProgress(params.idMeal) }
-          />
-        )
+        <RecipeButton
+          id={ meal.idMeal }
+          type="food"
+          nationality={ meal.strArea }
+          category={ meal.strCategory }
+          alcoholicOrNot=""
+          name={ meal.strMeal }
+          image={ meal.strMealThumb }
+          // favoriteRecipes={ favoriteRecipes }
+          // inProgressRecipes={ inProgressRecipes }
+          // doneRecipes={ doneRecipes }
+          continueRecipe={ false }
+        />
       }
     </main>
   );
