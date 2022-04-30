@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../RecipeButton.css';
-/* import { propTypes } from 'react-bootstrap/esm/Image'; */
+import { doneRecipes } from '../tests/mocks/localStorageMocks';
 
-function RecipeButton(/* props */) {
-  /* const { id, favoriteRecipes, inProgressRecipes, doneRecipes } = props; */
+function RecipeButton(props) {
+  const { id } = props;
+
   return (
-
     <button
       type="button"
       data-testid="start-recipe-btn"
@@ -16,11 +17,8 @@ function RecipeButton(/* props */) {
   );
 }
 
-export default RecipeButton;
+RecipeButton.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
-/* RecipeButton.propTypes = {
-  id: propTypes.shape().isRequired,
-  favoriteRecipes: propTypes.shape().isRequired,
-  inProgressRecipes: propTypes.shape().isRequired,
-  doneRecipes: propTypes.shape().isRequired,
-}; */
+export default RecipeButton;

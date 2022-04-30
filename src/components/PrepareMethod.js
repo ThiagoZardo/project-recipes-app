@@ -2,23 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function PrepareMethod(props) {
-  const { recipeIngredients, recipeMeasures, recipeInstructions, recipeVideo } = props;
-  console.log(recipeIngredients);
-  console.log(recipeMeasures);
+  const {
+    recipeIngredients,
+    recipeMeasures,
+    recipeInstructions,
+    recipeVideo,
+    willShowVideo,
+  } = props;
+  // console.log(recipeIngredients);
+  // console.log(recipeMeasures);
 
   return (
     <>
       <section>
         <p>Ingredientes</p>
-        <p>
-          { recipeIngredients.map((ingredient, index) => (
-            <p key={ index }>
-              <scan>{ ingredient }</scan>
-              {' - '}
-              <scan>{ recipeMeasures[index] }</scan>
-            </p>
-          ))}
-        </p>
+        { recipeIngredients.map((ingredient, index) => (
+          <p key={ index }>
+            <span>{ ingredient }</span>
+            {' - '}
+            <span>{ recipeMeasures[index] }</span>
+          </p>
+        ))}
       </section>
       <article>
         <p>Instruções</p>
@@ -27,22 +31,27 @@ function PrepareMethod(props) {
         >
           {recipeInstructions}
         </p>
-        <iframe
-          width="420"
-          height="315"
-          src={ recipeVideo }
-          title="Vídeo da Receita"
-        />
+        {
+          willShowVideo && (
+            <iframe
+              width="420"
+              height="315"
+              src={ recipeVideo }
+              title="Vídeo da Receita"
+            />
+          )
+        }
       </article>
     </>
   );
 }
 
 PrepareMethod.propTypes = {
-  recipeIngredients: PropTypes.string.isRequired,
-  recipeMeasures: PropTypes.string.isRequired,
+  recipeIngredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  recipeMeasures: PropTypes.arrayOf(PropTypes.string).isRequired,
   recipeInstructions: PropTypes.string.isRequired,
   recipeVideo: PropTypes.string.isRequired,
+  willShowVideo: PropTypes.bool.isRequired,
 };
 
 export default PrepareMethod;

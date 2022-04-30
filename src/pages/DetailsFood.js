@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import meal from '../tests/mocks/meals';
+import PropTypes from 'prop-types';
 import HeaderDetails from '../components/HeaderDetails';
 import PrepareMethod from '../components/PrepareMethod';
 import DrinkRecomended from '../components/DrinkRecomended';
@@ -10,29 +10,39 @@ import {
   doneRecipes,
 } from '../tests/mocks/localStorageMocks';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
-/* import { fetchMeals } from '../helpers'; */
-/* import getSixMeals from '../functions/getSixRecipes'; */
-import { fetchDrinks } from '../helpers';
+import checkIfRecipeIsDone from '../functions/checkLocalStorage';
+import { fetchDrinks, fetchFoodById } from '../helpers';
 import getSixDrinks from '../functions/getSixDrinks';
 
 function DetailsFood(props) {
+  const { match } = props;
+  const { params } = match;
+  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
   const [drinks, setDrinks] = useState([]);
-  const [meal, setFood] = useState({});
+  const [meal, setMeal] = useState({});
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
+  const [recipeMeasures, setRecipeMeasures] = useState([]);
+  const [videoUrl, setvideoUrl] = useState('');
 
   useEffect(() => {
-    const getDrinks = async ({ id }) => {
+    const getDrinks = async () => {
       const allDrinks = await fetchDrinks();
       const sixDrinks = getSixDrinks(allDrinks.drinks);
       setDrinks(sixDrinks);
-      const getMealObject = await functionDoApi(id);
-      setFood(getMealObject);
+      const foodObject = await fetchFoodById(params.idMeal);
+      setMeal(foodObject.meals[0]);
     };
-    getDrinks(props);
-  }, [props]);
+    getDrinks();
+  }, [params]);
 
-  const recipeIngredients = filterIngredients(meal);
-  const recipeMeasures = filterMeasures(meal);
-  const videoUrl = meal.strYoutube.replace('watch?v=', 'embed/');
+  useEffect(() => {
+    if (Object.values(meal).length) {
+      setRecipeIngredients(filterIngredients(meal));
+      setRecipeMeasures(filterMeasures(meal));
+      setvideoUrl(meal.strYoutube.replace('watch?v=', 'embed/'));
+    }
+  }, [meal]);
 
   return (
     <main>
@@ -46,6 +56,7 @@ function DetailsFood(props) {
         recipeMeasures={ recipeMeasures }
         recipeInstructions={ meal.strInstructions }
         recipeVideo={ videoUrl }
+        willShowVideo
       />
       {
         drinks.map((drinkRecomended) => (
@@ -58,14 +69,22 @@ function DetailsFood(props) {
 
         ))
       }
-      <RecipeButton
-        id={ meal.idMeal }
-        favoriteRecipes={ favoriteRecipes }
-        inProgressRecipes={ inProgressRecipes }
-        doneRecipes={ doneRecipes }
-      />
+      {
+        checkIfRecipeIsDone(params.idMeal) && (
+          <RecipeButton
+            id={ meal.idMeal }
+            favoriteRecipes={ favoriteRecipes }
+            inProgressRecipes={ inProgressRecipes }
+            doneRecipes={ doneRecipes }
+          />
+        )
+      }
     </main>
   );
 }
+
+DetailsFood.propTypes = {
+  match: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default DetailsFood;
