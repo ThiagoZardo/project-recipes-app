@@ -4,20 +4,26 @@ import HeaderDetails from '../components/HeaderDetails';
 import PrepareMethod from '../components/PrepareMethod';
 import DrinkRecomended from '../components/DrinkRecomended';
 import RecipeButton from '../components/RecipeButton';
+// mocks de localStorage
 import {
   favoriteRecipes,
   inProgressRecipes,
   doneRecipes,
 } from '../tests/mocks/localStorageMocks';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
-import checkIfRecipeIsDone from '../functions/checkLocalStorage';
+import {
+  checkIfMealIsInProgress,
+  checkIfRecipeIsDone,
+} from '../functions/checkLocalStorage';
 import { fetchDrinks, fetchFoodById } from '../helpers';
 import getSixDrinks from '../functions/getSixDrinks';
 
 function DetailsFood(props) {
   const { match } = props;
   const { params } = match;
+  // coloca o mock de doneRecipes no localStorage
   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  // coloca o mock de inProgressRecipes no localStorage
 
   const [drinks, setDrinks] = useState([]);
   const [meal, setMeal] = useState({});
@@ -73,9 +79,11 @@ function DetailsFood(props) {
         checkIfRecipeIsDone(params.idMeal) && (
           <RecipeButton
             id={ meal.idMeal }
+            type="meal"
             favoriteRecipes={ favoriteRecipes }
             inProgressRecipes={ inProgressRecipes }
             doneRecipes={ doneRecipes }
+            continueRecipe={ checkIfMealIsInProgress(params.idMeal) }
           />
         )
       }

@@ -1,10 +1,5 @@
 export const inProgressRecipes = {
   cocktails: {
-    15997: [
-      'Galliano',
-      'Ginger ale',
-      'Ice',
-    ],
     17222: [
       'Gin',
       'Grand Marnier',
