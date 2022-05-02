@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import { copy } from 'fs-extra';
+import copy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom';
 
 function HeaderDetails(props) {
-  const { recipeImage, recipeTitle, recipeCategory } = props;
-  // strSource
+  const { recipeImage, recipeTitle, recipeCategory, alcoholic } = props;
+  const [favorite, setFavorite] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const history = useHistory();
 
   const shareImage = () => {
-    // copy(strSource);
+    setCopied(true);
+    const { location: { pathname } } = history;
+    const recipeUrl = `http://localhost:3000${pathname}`;
+    copy(recipeUrl);
   };
 
   return (
@@ -22,19 +28,24 @@ function HeaderDetails(props) {
       <h3 data-testid="recipe-title">
         { recipeTitle }
       </h3>
-      <input
-        type="image"
-        src="images/shareIcon.svg"
-        alt="shareIcon"
+      <button
+        type="button"
         data-testid="share-btn"
         onClick={ shareImage }
-      />
+      >
+        <img src="/images/shareIcon.svg" alt="shareIcon" />
+        {
+          copied && <p>Link Copied!</p>
+        }
+      </button>
       <input
         type="image"
-        src="images/whiteHeartIcon.svg"
-        alt="favorite heart"
+        src={ favorite ? '/images/blackHeartIcon.svg' : '/images/whiteHeartIcon.svg' }
+        alt="favorite"
         data-testid="favorite-btn"
+        onClick={ () => setFavorite(!favorite) }
       />
+      <h4 data-testid="recipe-category">{alcoholic}</h4>
       <h5
         data-testid="recipe-category"
       >
@@ -45,9 +56,10 @@ function HeaderDetails(props) {
 }
 
 HeaderDetails.propTypes = {
-  recipeImage: PropTypes.string.isRequired,
-  recipeTitle: PropTypes.string.isRequired,
-  recipeCategory: PropTypes.string.isRequired,
+  recipeImage: PropTypes.node.isRequired,
+  recipeTitle: PropTypes.node.isRequired,
+  recipeCategory: PropTypes.node.isRequired,
+  alcoholic: PropTypes.node.isRequired,
 };
 
 export default HeaderDetails;

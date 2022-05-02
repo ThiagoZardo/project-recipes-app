@@ -17,6 +17,8 @@ import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
 // } from '../functions/checkLocalStorage';
 import { fetchDrinkById, fetchMeals } from '../helpers';
 import getSixMeals from '../functions/getSixRecipes';
+import { checkIfDrinkIsInProgress, checkIfRecipeIsDone,
+  setLocalStorage } from '../functions/checkLocalStorage';
 
 function DetailsDrink(props) {
   const { match } = props;
@@ -38,6 +40,7 @@ function DetailsDrink(props) {
       setFoods(sixFoods);
       const drinkObject = await fetchDrinkById(params.idDrink);
       setDrink(drinkObject.drinks[0]);
+      setLocalStorage();
     };
     getFoods();
   }, []);
@@ -49,12 +52,15 @@ function DetailsDrink(props) {
     }
   }, [drink]);
 
+  setLocalStorage();
+
   return (
     <main>
       <HeaderDetails
         recipeImage={ drink.strDrinkThumb }
         recipeTitle={ drink.strDrink }
         recipeCategory={ drink.strCategory }
+        alcoholic={ drink.strAlcoholic }
       />
       {
         // console.log(checkIfRecipeIsDone(+(params.idDrink)))
@@ -78,10 +84,16 @@ function DetailsDrink(props) {
         <RecipeButton
           id={ drink.idDrink }
           type="drink"
+          nationality={ drink.strArea }
+          category={ drink.strCategory }
+          alcoholicOrNot=""
+          name={ drink.strDrink }
+          image={ drink.strDrinkThumb }
           // favoriteRecipes={ favoriteRecipes }
           // inProgressRecipes={ inProgressRecipes }
           // doneRecipes={ doneRecipes }
-          continueRecipe={ false }
+          recipeDone={ checkIfRecipeIsDone(drink.idDrink) }
+          continueRecipe={ checkIfDrinkIsInProgress(drink.idDrink) }
         />
       }
     </main>
@@ -89,7 +101,7 @@ function DetailsDrink(props) {
 }
 
 DetailsDrink.propTypes = {
-  match: PropTypes.objectOf(PropTypes.object).isRequired,
+  match: PropTypes.node.isRequired,
 };
 
 export default DetailsDrink;

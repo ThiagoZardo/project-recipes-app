@@ -51,11 +51,11 @@ function PrepareMethod(props) {
 }
 
 PrepareMethod.propTypes = {
-  recipeIngredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-  recipeMeasures: PropTypes.arrayOf(PropTypes.string).isRequired,
-  recipeInstructions: PropTypes.string.isRequired,
-  recipeVideo: PropTypes.string.isRequired,
-  willShowVideo: PropTypes.bool.isRequired,
+  recipeIngredients: PropTypes.node.isRequired,
+  recipeMeasures: PropTypes.node.isRequired,
+  recipeInstructions: PropTypes.node.isRequired,
+  recipeVideo: PropTypes.node.isRequired,
+  willShowVideo: PropTypes.node.isRequired,
 };
 
 export default PrepareMethod;

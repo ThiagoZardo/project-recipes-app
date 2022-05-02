@@ -17,6 +17,8 @@ import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
 // } from '../functions/checkLocalStorage';
 import { fetchDrinks, fetchFoodById } from '../helpers';
 import getSixDrinks from '../functions/getSixDrinks';
+import { checkIfMealIsInProgress, checkIfRecipeIsDone,
+  setLocalStorage } from '../functions/checkLocalStorage';
 
 function DetailsFood(props) {
   const { match } = props;
@@ -40,9 +42,6 @@ function DetailsFood(props) {
       const foodObject = await fetchFoodById(params.idMeal);
       console.log(foodObject);
       setMeal(foodObject.meals[0]);
-      if (!localStorage.getItem('inProgressRecipes')) {
-        localStorage.setItem('inProgressRecipes', JSON.stringify([]));
-      }
     };
     getDrinks();
   }, []);
@@ -54,6 +53,7 @@ function DetailsFood(props) {
       setvideoUrl(meal.strYoutube.replace('watch?v=', 'embed/'));
     }
   }, [meal]);
+  setLocalStorage();
   return (
     <main>
       {
@@ -97,7 +97,8 @@ function DetailsFood(props) {
           // favoriteRecipes={ favoriteRecipes }
           // inProgressRecipes={ inProgressRecipes }
           // doneRecipes={ doneRecipes }
-          continueRecipe={ false }
+          recipeDone={ checkIfRecipeIsDone(meal.idMeal) }
+          continueRecipe={ checkIfMealIsInProgress(meal.idMeal) }
         />
       }
     </main>
