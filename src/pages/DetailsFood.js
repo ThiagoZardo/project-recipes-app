@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import HeaderDetails from '../components/HeaderDetails';
 import PrepareMethod from '../components/PrepareMethod';
 import DrinkRecomended from '../components/DrinkRecomended';
 import RecipeButton from '../components/RecipeButton';
-import { checkIfMealIsInProgress, checkIfRecipeIsDone,
-  setLocalStorage } from '../functions/checkLocalStorage';
+import { setLocalStorage } from '../functions/checkLocalStorage';
 import { fetchFoodById } from '../helpers';
 import { detailFood, drinkApi } from '../redux/actions';
 
@@ -14,7 +13,6 @@ function DetailsFood(props) {
   const { match } = props;
   const { params } = match;
   console.log(params.idMeal);
-  const [meal, setMeal] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +20,6 @@ function DetailsFood(props) {
       drinkApi(dispatch);
       const foodObject = await fetchFoodById(params.idMeal);
       dispatch(detailFood(foodObject.meals[0]));
-      setMeal(foodObject.meals[0]);
     };
     getDrinks();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,12 +30,7 @@ function DetailsFood(props) {
       <HeaderDetails />
       <PrepareMethod />
       <DrinkRecomended />
-      <RecipeButton
-        id={ meal.idMeal }
-        type="food"
-        recipeDone={ checkIfRecipeIsDone(meal.idMeal) }
-        continueRecipe={ checkIfMealIsInProgress(meal.idMeal) }
-      />
+      <RecipeButton />
     </main>
   );
 }

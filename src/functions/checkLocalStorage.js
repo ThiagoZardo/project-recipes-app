@@ -2,7 +2,7 @@ export function checkIfRecipeIsDone(id) {
   const allDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   console.log(allDoneRecipes);
   const teste = allDoneRecipes.some((doneRecipe) => (
-    Number(doneRecipe.id) === Number(id)
+    Number(doneRecipe.id) !== Number(id)
   ));
   return teste;
 }
@@ -42,10 +42,10 @@ export function setLocalStorage() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(
       {
         cocktails: {
-          18490: [],
+          15997: [],
         },
         meals: {
-          18300: [],
+          53060: [],
         },
       },
     ));
