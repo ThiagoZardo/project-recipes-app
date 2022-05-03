@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { checkIfFavoriteRecipe } from '../functions/checkLocalStorage';
 
-function HeaderDetails(props) {
-  const { recipeImage, recipeTitle, recipeCategory, alcoholic } = props;
-  const [favorite, setFavorite] = useState(false);
+function HeaderDetails() {
+  const stateDetailsFood = useSelector((state) => state.details.foodsDetails);
+  console.log(stateDetailsFood);
+  const stateDetailsDrink = useSelector((state) => state.details.drinksDetails);
+  console.log(stateDetailsDrink);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const history = useHistory();
+
+  const { idDrink } = stateDetailsDrink;
+  const id = !idDrink ? stateDetailsFood.idMeal : stateDetailsDrink.idDrink;
 
   const shareImage = () => {
     setCopied(true);
@@ -16,50 +23,55 @@ function HeaderDetails(props) {
     copy(recipeUrl);
   };
 
+  const favoriteChange = () => {
+    setIsFavorite(!isFavorite);
+  };
+
+  useEffect(() => {
+    if (checkIfFavoriteRecipe(id)) {
+      setIsFavorite(true);
+    }
+  }, [id]);
+
   return (
     <div>
       <img
-        src={ recipeImage }
+        src={ !idDrink ? stateDetailsFood.strMealThumb : stateDetailsDrink.strDrinkThumb }
         alt="Meal"
         width="360"
         height="128"
         data-testid="recipe-photo"
       />
       <h3 data-testid="recipe-title">
-        { recipeTitle }
+        { !idDrink ? stateDetailsFood.strMeal : stateDetailsDrink.strDrink }
       </h3>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ shareImage }
-      >
-        <img src="/images/shareIcon.svg" alt="shareIcon" />
-        {
-          copied && <p>Link Copied!</p>
-        }
-      </button>
       <input
         type="image"
-        src={ favorite ? '/images/blackHeartIcon.svg' : '/images/whiteHeartIcon.svg' }
+        src="/images/shareIcon.svg"
+        alt="shareIcon"
+        data-testid="share-btn"
+        onClick={ shareImage }
+      />
+      {
+        copied && <p>Link copied!</p>
+      }
+      <input
+        type="image"
+        src={ isFavorite ? '/images/blackHeartIcon.svg' : '/images/whiteHeartIcon.svg' }
         alt="favorite"
         data-testid="favorite-btn"
-        onClick={ () => setFavorite(!favorite) }
+        onClick={ favoriteChange }
       />
-      <h4 data-testid="recipe-category">{alcoholic}</h4>
+      <h4 data-testid="recipe-category">
+        {idDrink && stateDetailsDrink.strAlcoholic}
+      </h4>
       <h5
         data-testid="recipe-category"
       >
-        { recipeCategory}
+        {!idDrink ? stateDetailsFood.strCategory : stateDetailsDrink.strCategory}
       </h5>
     </div>
   );
 }
-
-HeaderDetails.propTypes = {
-  recipeImage: PropTypes.node.isRequired,
-  recipeTitle: PropTypes.node.isRequired,
-  recipeCategory: PropTypes.node.isRequired,
-  alcoholic: PropTypes.node.isRequired,
-};
 
 export default HeaderDetails;

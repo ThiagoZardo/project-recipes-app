@@ -61,21 +61,6 @@ function RecipeButton(props) {
         )
 
       }
-
-      {/* // <button
-    //   type="button"
-    //   data-testid="start-recipe-btn"
-    //   className="startButton"
-    //   onClick={ goToRecipeInProgress }
-    // >
-    //   {
-    //     continueRecipe ? (
-    //       'Continue Recipe'
-    //     ) : (
-    //       'Start Recipe'
-    //     )
-    //   }
-    // </button> */}
     </div>
   );
 }
@@ -85,11 +70,6 @@ RecipeButton.propTypes = {
   continueRecipe: PropTypes.node.isRequired,
   recipeDone: PropTypes.node.isRequired,
   type: PropTypes.node.isRequired,
-  // nationality: PropTypes.node.isRequired,
-  // category: PropTypes.node.isRequired,
-  // alcoholicOrNot: PropTypes.node.isRequired,
-  // name: PropTypes.node.isRequired,
-  // image: PropTypes.node.isRequired,
 };
 
 export default RecipeButton;

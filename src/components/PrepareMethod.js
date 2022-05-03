@@ -1,16 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
 
-function PrepareMethod(props) {
-  const {
-    recipeIngredients,
-    recipeMeasures,
-    recipeInstructions,
-    recipeVideo,
-    willShowVideo,
-  } = props;
-  // console.log(recipeIngredients);
-  // console.log(recipeMeasures);
+function PrepareMethod() {
+  const detailFood = useSelector((state) => state.details.foodsDetails);
+  const detailDrink = useSelector((state) => state.details.drinksDetails);
+  const [videoUrl, setvideoUrl] = useState('');
+  const { idDrink } = detailDrink;
+  const ifDetail = !idDrink ? detailFood : detailDrink;
+  const recipeIngredients = filterIngredients(ifDetail);
+  const recipeMeasures = filterMeasures(ifDetail);
+
+  useEffect(() => {
+    if (Object.values(detailFood).length) {
+      const YTUrl = detailFood.strYoutube.replace('watch?v=', 'embed/');
+      console.log(YTUrl);
+      setvideoUrl(YTUrl);
+    }
+  }, [detailFood]);
 
   return (
     <>
@@ -32,30 +39,21 @@ function PrepareMethod(props) {
         <p
           data-testid="instructions"
         >
-          {recipeInstructions}
+          {!idDrink ? detailFood.strInstructions : detailDrink.strInstructions}
         </p>
         {
-          willShowVideo && (
-            <iframe
-              width="420"
-              height="315"
-              src={ recipeVideo }
-              title="Vídeo da Receita"
-              data-testid="video"
-            />
-          )
+          !idDrink
+          && <iframe
+            width="420"
+            height="315"
+            src={ videoUrl }
+            title="Vídeo da Receita"
+            data-testid="video"
+          />
         }
       </article>
     </>
   );
 }
-
-PrepareMethod.propTypes = {
-  recipeIngredients: PropTypes.node.isRequired,
-  recipeMeasures: PropTypes.node.isRequired,
-  recipeInstructions: PropTypes.node.isRequired,
-  recipeVideo: PropTypes.node.isRequired,
-  willShowVideo: PropTypes.node.isRequired,
-};
 
 export default PrepareMethod;

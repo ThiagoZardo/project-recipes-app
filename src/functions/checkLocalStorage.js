@@ -28,6 +28,15 @@ export function checkIfDrinkIsInProgress(id) {
   return drinksId;
 }
 
+export function checkIfFavoriteRecipe(id) {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favorite = favoriteRecipes.some((recipes) => (
+    Number(recipes.id) === Number(id)
+  ));
+  console.log(favorite);
+  return favorite;
+}
+
 export function setLocalStorage() {
   if (!localStorage.getItem('inProgressRecipes')) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(
@@ -43,5 +52,10 @@ export function setLocalStorage() {
   }
   if (!localStorage.getItem('doneRecipes')) {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
+  }
+  if (!localStorage.getItem('favoriteRecipes')) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([{
+      id: '53060',
+    }]));
   }
 }

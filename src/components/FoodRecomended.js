@@ -1,30 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function FoodRecomended(props) {
-  const { recipeImage, recipeCategory, recipeTitle } = props;
+function FoodRecomended() {
+  const foodState = useSelector((state) => state.search.foodsSearch);
+  const maxRecomend = 6;
   return (
     <section data-testid="0-recomendation-card">
-      <img
-        src={ recipeImage }
-        alt="Meal"
-        width="360"
-        height="128"
-      />
-      <h3>
-        { recipeTitle }
-      </h3>
-      <h5>
-        { recipeCategory }
-      </h5>
+      {
+        foodState.slice(0, maxRecomend).map((food) => (
+          <>
+            <img
+              src={ food.strMealThumb }
+              alt="Meal"
+              width="360"
+              height="128"
+            />
+            <h3>{food.strMeal}</h3>
+            <h5>{food.strCategory}</h5>
+          </>
+        ))
+      }
     </section>
   );
 }
 
 export default FoodRecomended;
-
-FoodRecomended.propTypes = {
-  recipeImage: PropTypes.string.isRequired,
-  recipeCategory: PropTypes.string.isRequired,
-  recipeTitle: PropTypes.string.isRequired,
-};
