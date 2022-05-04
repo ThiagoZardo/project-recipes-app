@@ -12,9 +12,7 @@ import { detailFood, drinkApi } from '../redux/actions';
 function DetailsFood(props) {
   const { match } = props;
   const { params } = match;
-  console.log(params.idMeal);
   const dispatch = useDispatch();
-
   useEffect(() => {
     const getDrinks = async () => {
       drinkApi(dispatch);

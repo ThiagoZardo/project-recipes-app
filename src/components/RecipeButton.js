@@ -1,85 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import '../RecipeButton.css';
-import { useSelector } from 'react-redux';
 import { checkIfDrinkIsInProgress,
   checkIfMealIsInProgress, checkIfRecipeIsDone } from '../functions/checkLocalStorage';
 
 function RecipeButton() {
-  const detailFood = useSelector((state) => state.details.foodsDetails);
-  const detailDrink = useSelector((state) => state.details.drinksDetails);
   const history = useHistory();
-  const [isRecipeDone, setIsDone] = useState(true);
-  // const [isContinueRecipe, setIsRecipe] = useState(false);
-  const { idDrink } = detailDrink;
-  const id = !idDrink ? detailFood.idMeal : detailDrink.idDrink;
-  const type = !idDrink ? 'food' : 'drink';
-  const continueRecipe = type === 'food'
-    ? checkIfMealIsInProgress(id) : checkIfDrinkIsInProgress(id);
-  console.log(continueRecipe);
+  const location = useLocation();
+  const { pathname } = location;
+  const itemId = pathname.split('/')[2];
+  const type = pathname.split('/')[1];
+  const isDone = checkIfRecipeIsDone(itemId);
+  let continueRecipe;
 
-  useEffect(() => {
-    setIsDone(checkIfRecipeIsDone(id));
-  }, [isRecipeDone]);
-
-  // useEffect(() => {
-  //   setIsRecipe(continueRecipe);
-  //   setIsDone(false);
-  // }, []);
-
-  // const storageInProgress = () => {
-  //   const objectProgress = {
-  //     id,
-  //     type,
-  //     nationality,
-  //     category,
-  //     alcoholicOrNot,
-  //     name,
-  //     image,
-  //   };
-  //   const getItem = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   console.log(getItem);
-
-  //   localStorage.setItem('inProgressRecipes',
-  //     JSON.stringify([...getItem, objectProgress]));
-  // };
+  if (type === 'foods') {
+    continueRecipe = checkIfMealIsInProgress(itemId);
+  } else {
+    continueRecipe = checkIfDrinkIsInProgress(itemId);
+  }
 
   const goToRecipeInProgress = () => {
-    if (type === 'food') {
-      history.push(`/foods/${id}/in-progress`);
+    if (type === 'foods') {
+      history.push(`/foods/${itemId}/in-progress`);
     } else {
-      history.push(`/drinks/${id}/in-progress`);
+      history.push(`/drinks/${itemId}/in-progress`);
     }
   };
 
   return (
     <div>
-      {
-        continueRecipe
-          && (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="startButton"
-              onClick={ goToRecipeInProgress }
-            >
-              Continue Recipe
-            </button>
-          )
-      }
-      {
-        !isRecipeDone && (
+      {!isDone
+        ? (
           <button
-            onClick={ goToRecipeInProgress }
             type="button"
             data-testid="start-recipe-btn"
             className="startButton"
+            onClick={ goToRecipeInProgress }
           >
-            Start Recipe
-          </button>
-        )
 
-      }
+            {continueRecipe ? 'Continue Recipe' : 'Start Recipe'}
+          </button>)
+        : null}
     </div>
   );
 }

@@ -14,7 +14,6 @@ function PrepareMethod() {
   useEffect(() => {
     if (Object.values(detailFood).length) {
       const YTUrl = detailFood.strYoutube.replace('watch?v=', 'embed/');
-      console.log(YTUrl);
       setvideoUrl(YTUrl);
     }
   }, [detailFood]);
