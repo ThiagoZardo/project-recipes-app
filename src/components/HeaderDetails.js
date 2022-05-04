@@ -7,14 +7,13 @@ import { checkIfFavoriteRecipe } from '../functions/checkLocalStorage';
 function HeaderDetails() {
   const stateDetailsFood = useSelector((state) => state.details.foodsDetails);
   const stateDetailsDrink = useSelector((state) => state.details.drinksDetails);
-  console.log(stateDetailsFood);
-  console.log(stateDetailsDrink);
   const [isFavorite, setIsFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const location = useLocation();
   const { pathname } = location;
   const itemId = pathname.split('/')[2];
   const type = (pathname.split('/')[1]).replace('s', '');
+
   const { idDrink } = stateDetailsDrink;
   const img = !idDrink ? stateDetailsFood.strMealThumb : stateDetailsDrink.strDrinkThumb;
   const title = !idDrink ? stateDetailsFood.strMeal : stateDetailsDrink.strDrink;
@@ -33,7 +32,7 @@ function HeaderDetails() {
 
   const shareImage = () => {
     setCopied(true);
-    const recipeUrl = `http://localhost:3000${pathname}`;
+    const recipeUrl = `http://localhost:3000${pathname.replace('/in-progress', '')}`;
     copy(recipeUrl);
   };
 
@@ -52,6 +51,7 @@ function HeaderDetails() {
     if (isFavorite) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([...storage, favoriteObj]));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFavorite]);
 
   return (
