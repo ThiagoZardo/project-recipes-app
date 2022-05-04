@@ -5,19 +5,20 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import HeaderSearch from '../components/HeaderSearch';
 import { foodApi } from '../redux/actions';
-// import { fetchMeals } from '../helpers';
 
 function Foods() {
-  let storeFood = useSelector((state) => state.search.foodsSearch);
+  const storeFood = useSelector((state) => state.search.foodsSearch);
+  const ingredientFoodFilter = useSelector((state) => state.search.foodIngredient);
   const dispatch = useDispatch();
   const mealsArray = 12;
-  if (!storeFood) storeFood = [];
 
   useEffect(() => {
     function fetchData() {
-      foodApi(dispatch);
+      if (storeFood.length === 0) foodApi(dispatch);
     }
-    fetchData();
+    if (storeFood.length === 0) {
+      fetchData();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -28,15 +29,30 @@ function Foods() {
         <HeaderSearch />
       </header>
       {
-        storeFood.slice(0, mealsArray)
-          .map(({ strMeal, strMealThumb, idMeal }, index) => (
-            <FoodsCard
-              key={ idMeal }
-              strMeal={ strMeal }
-              strMealThumb={ strMealThumb }
-              index={ index }
-              idMeal={ idMeal }
-            />))
+        ingredientFoodFilter.length > 0
+          ? (
+            ingredientFoodFilter.slice(0, mealsArray)
+              .map(({ strMeal, strMealThumb, idMeal }, index) => (
+                <FoodsCard
+                  key={ idMeal }
+                  strMeal={ strMeal }
+                  strMealThumb={ strMealThumb }
+                  index={ index }
+                  idMeal={ idMeal }
+                />))
+          )
+          : (
+            storeFood.slice(0, mealsArray)
+              .map(({ strMeal, strMealThumb, idMeal }, index) => (
+                <FoodsCard
+                  key={ idMeal }
+                  strMeal={ strMeal }
+                  strMealThumb={ strMealThumb }
+                  idMeal={ idMeal }
+                  index={ index }
+                />))
+          )
+
       }
       <Footer />
     </div>

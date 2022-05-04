@@ -8,15 +8,18 @@ import { drinkApi } from '../redux/actions';
 
 function Drinks() {
   let drinkStore = useSelector((state) => state.search.drinksSearch);
+  const ingredientDrinkFilter = useSelector((state) => state.search.drinkIngredient);
   const dispatch = useDispatch();
   if (!drinkStore) drinkStore = [];
   const drinkArray = 12;
 
   useEffect(() => {
     function fetchData() {
-      drinkApi(dispatch);
+      if (drinkStore.length === 0) drinkApi(dispatch);
     }
-    fetchData();
+    if (drinkStore.length === 0) {
+      fetchData();
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -27,15 +30,29 @@ function Drinks() {
         <HeaderSearch />
       </header>
       {
-        drinkStore.slice(0, drinkArray)
-          .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-            <DrinksCard
-              key={ idDrink }
-              strDrink={ strDrink }
-              strDrinkThumb={ strDrinkThumb }
-              index={ index }
-              idDrink={ idDrink }
-            />))
+        ingredientDrinkFilter.length > 0
+          ? (
+            ingredientDrinkFilter.slice(0, drinkArray)
+              .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+                <DrinksCard
+                  key={ idDrink }
+                  strDrink={ strDrink }
+                  strDrinkThumb={ strDrinkThumb }
+                  index={ index }
+                  idDrink={ idDrink }
+                />))
+          )
+          : (
+            drinkStore.slice(0, drinkArray)
+              .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+                <DrinksCard
+                  index={ index }
+                  key={ idDrink }
+                  strDrink={ strDrink }
+                  idDrink={ idDrink }
+                  strDrinkThumb={ strDrinkThumb }
+                />))
+          )
       }
       <Footer />
     </div>
