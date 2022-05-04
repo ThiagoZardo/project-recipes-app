@@ -47,8 +47,6 @@ export function setLocalStorage() {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
   }
   if (!localStorage.getItem('favoriteRecipes')) {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([{
-      id: '53060',
-    }]));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
 }

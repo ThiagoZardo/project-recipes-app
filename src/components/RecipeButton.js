@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import '../RecipeButton.css';
+import '../styles/RecipeButton.css';
 import { checkIfDrinkIsInProgress,
   checkIfMealIsInProgress, checkIfRecipeIsDone } from '../functions/checkLocalStorage';
 

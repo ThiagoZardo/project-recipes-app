@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import copy from 'clipboard-copy';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { checkIfFavoriteRecipe } from '../functions/checkLocalStorage';
 
 function HeaderDetails() {
   const stateDetailsFood = useSelector((state) => state.details.foodsDetails);
   const stateDetailsDrink = useSelector((state) => state.details.drinksDetails);
+  console.log(stateDetailsFood);
+  console.log(stateDetailsDrink);
   const [isFavorite, setIsFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
-  const history = useHistory();
-
+  const location = useLocation();
+  const { pathname } = location;
+  const itemId = pathname.split('/')[2];
+  const type = (pathname.split('/')[1]).replace('s', '');
   const { idDrink } = stateDetailsDrink;
-  const id = !idDrink ? stateDetailsFood.idMeal : stateDetailsDrink.idDrink;
+  const img = !idDrink ? stateDetailsFood.strMealThumb : stateDetailsDrink.strDrinkThumb;
+  const title = !idDrink ? stateDetailsFood.strMeal : stateDetailsDrink.strDrink;
+  const alcoholic = idDrink ? stateDetailsDrink.strAlcoholic : '';
+  const ctegory = !idDrink ? stateDetailsFood.strCategory : stateDetailsDrink.strCategory;
+  const nation = !idDrink ? stateDetailsFood.strArea : '';
+  const favoriteObj = {
+    id: itemId,
+    type,
+    nationality: nation,
+    category: ctegory,
+    alcoholicOrNot: alcoholic,
+    name: title,
+    image: img,
+  };
 
   const shareImage = () => {
     setCopied(true);
-    const { location: { pathname } } = history;
     const recipeUrl = `http://localhost:3000${pathname}`;
     copy(recipeUrl);
   };
@@ -26,23 +42,28 @@ function HeaderDetails() {
   };
 
   useEffect(() => {
-    if (checkIfFavoriteRecipe(id)) {
+    if (checkIfFavoriteRecipe(itemId)) {
       setIsFavorite(true);
     }
-  }, [id]);
+  }, [itemId]);
+
+  useEffect(() => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (isFavorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...storage, favoriteObj]));
+    }
+  }, [isFavorite]);
 
   return (
     <div>
       <img
-        src={ !idDrink ? stateDetailsFood.strMealThumb : stateDetailsDrink.strDrinkThumb }
+        src={ img }
         alt="Meal"
         width="360"
         height="128"
         data-testid="recipe-photo"
       />
-      <h3 data-testid="recipe-title">
-        { !idDrink ? stateDetailsFood.strMeal : stateDetailsDrink.strDrink }
-      </h3>
+      <h3 data-testid="recipe-title">{title}</h3>
       <input
         type="image"
         src="/images/shareIcon.svg"
@@ -50,9 +71,7 @@ function HeaderDetails() {
         data-testid="share-btn"
         onClick={ shareImage }
       />
-      {
-        copied && <p>Link copied!</p>
-      }
+      {copied && <p>Link copied!</p>}
       <input
         type="image"
         src={ isFavorite ? '/images/blackHeartIcon.svg' : '/images/whiteHeartIcon.svg' }
@@ -60,14 +79,8 @@ function HeaderDetails() {
         data-testid="favorite-btn"
         onClick={ favoriteChange }
       />
-      <h4 data-testid="recipe-category">
-        {idDrink && stateDetailsDrink.strAlcoholic}
-      </h4>
-      <h5
-        data-testid="recipe-category"
-      >
-        {!idDrink ? stateDetailsFood.strCategory : stateDetailsDrink.strCategory}
-      </h5>
+      <h4 data-testid="recipe-category">{alcoholic}</h4>
+      <h5 data-testid="recipe-category">{ctegory}</h5>
     </div>
   );
 }
