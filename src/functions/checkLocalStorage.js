@@ -32,16 +32,7 @@ export function checkIfFavoriteRecipe(id) {
 
 export function setLocalStorage() {
   if (!localStorage.getItem('inProgressRecipes')) {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(
-      {
-        cocktails: {
-          15997: [],
-        },
-        meals: {
-          53060: [],
-        },
-      },
-    ));
+    localStorage.setItem('inProgressRecipes', JSON.stringify({}));
   }
   if (!localStorage.getItem('doneRecipes')) {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
