@@ -4,7 +4,8 @@
   z-index: 1;
 }
 
-@media (min-width: 360px) and (max-height: 640px) { 
+@media ( min-width : 360px ) and ( max-height : 640px ) {
+
   .startButton {
     background-color: greenyellow;
     border: 2px solid black;
