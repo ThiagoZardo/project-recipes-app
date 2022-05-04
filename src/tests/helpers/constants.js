@@ -24,3 +24,6 @@ export const EXPLORE_DRINKS = 'explore-drinks';
 export const EXPLORE_INGREDIENTS = 'explore-by-ingredient';
 export const EXPLORE_NATIONALITY = 'explore-by-nationality';
 export const EXPLORE_SURPRISE = 'explore-surprise';
+export const INGREDIENT_CARD = 'ingredient-card';
+export const CARD_IMG = 'card-img';
+export const CARD_NAME = 'card-name';

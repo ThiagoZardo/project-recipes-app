@@ -8,6 +8,8 @@ export const inputBar = (nameValue) => ({
 export const searchFood = (food) => ({ type: 'GET_FOOD', food });
 export const searchDrink = (drink) => ({ type: 'GET_DRINK', drink });
 
+export const ingredientFood = (food) => ({ type: 'GET_FOOD_INGREDIENTS', food });
+export const ingredientDrink = (drink) => ({ type: 'GET_DRINK_INGREDIENTS', drink });
 export const detailDrink = (drink) => ({ type: 'GET_DETAILSDRINK', drink });
 export const detailFood = (food) => ({ type: 'GET_DETAILSFOOD', food });
 

@@ -91,9 +91,20 @@ export const fetchDrinkByCategory = async (category) => {
     return error;
   }
 };
+
 export const getSurpriseDrinks = async () => {
   try {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getIngredientsFoods = async () => {
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
     const data = await response.json();
     return data;
   } catch (error) {
@@ -108,6 +119,39 @@ export const fetchFoodById = async (id) => {
     );
     const meal = await response.json();
     return meal;
+
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getIngredientsDrinks = async () => {
+  try {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const fetchFilterIngredientsFoods = async (paramFilterFood) => {
+  try {
+    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${paramFilterFood}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const fetchFilterIngredientsDrinks = async (paramFilterDrink) => {
+  try {
+    const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${paramFilterDrink}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
   } catch (error) {
     return error;
   }

@@ -1,7 +1,9 @@
 const INITIAL_STATE = {
   searchValue: '',
   foodsSearch: [],
+  foodIngredient: [],
   drinksSearch: [],
+  drinkIngredient: [],
 };
 
 const search = (state = INITIAL_STATE, action) => {
@@ -20,6 +22,16 @@ const search = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       drinksSearch: action.drink,
+    };
+  case 'GET_FOOD_INGREDIENTS':
+    return {
+      ...state,
+      foodIngredient: action.food,
+    };
+  case 'GET_DRINK_INGREDIENTS':
+    return {
+      ...state,
+      drinkIngredient: action.drink,
     };
   default:
     return state;

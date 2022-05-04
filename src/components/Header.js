@@ -17,12 +17,21 @@ function Header(props) {
         data-testid="profile-top-btn"
         onClick={ () => history.push('/profile') }
       />
-      <SearchBar heading={ heading } />
       {
-        heading === 'Foods' && <Category heading={ heading } />
+        heading === 'Foods' && (
+          <>
+            <SearchBar heading={ heading } />
+            <Category heading={ heading } />
+          </>
+        )
       }
       {
-        heading === 'Drinks' && <Category heading={ heading } />
+        heading === 'Drinks' && (
+          <>
+            <SearchBar heading={ heading } />
+            <Category heading={ heading } />
+          </>
+        )
       }
     </div>
   );
