@@ -7,7 +7,7 @@ import { checkIfFavoriteRecipe } from '../functions/checkLocalStorage';
 function HeaderDetails() {
   const stateDetailsFood = useSelector((state) => state.details.foodsDetails);
   const stateDetailsDrink = useSelector((state) => state.details.drinksDetails);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(0);
   const [copied, setCopied] = useState(false);
   const location = useLocation();
   const { pathname } = location;

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom';
 
 function FoodsFavoriteCard(props) {
   const { index, recipe, setFavoriteRecipes } = props;
+  const history = useHistory();
 
   const [copied, setCopied] = useState(false);
 
@@ -26,12 +28,26 @@ function FoodsFavoriteCard(props) {
     setFavoriteRecipes(newStorage);
   };
 
+  const redirectToDetails = () => {
+    if (recipe.type === 'food') {
+      const url = `foods/${recipe.id}`;
+      history.push(url);
+    } else {
+      const url = `drinks/${recipe.id}`;
+      history.push(url);
+    }
+  };
+
   return (
     <>
-      <img
+      <input
+        type="image"
         src={ recipe.image }
         alt="comida favorita"
+        width="360"
+        height="128"
         data-testid={ `${index}-horizontal-image` }
+        onClick={ redirectToDetails }
       />
       <p
         data-testid={ `${index}-horizontal-top-text` }
@@ -42,11 +58,12 @@ function FoodsFavoriteCard(props) {
           )
         }
       </p>
-      <p
+      <scan
         data-testid={ `${index}-horizontal-name` }
+        onClick={ redirectToDetails }
       >
         {recipe.name}
-      </p>
+      </scan>
       <input
         type="image"
         src="/images/shareIcon.svg"
