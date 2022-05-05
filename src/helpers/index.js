@@ -119,7 +119,6 @@ export const fetchFoodById = async (id) => {
     );
     const meal = await response.json();
     return meal;
-
   } catch (error) {
     return error;
   }

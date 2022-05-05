@@ -34,7 +34,7 @@ function DetailsFood(props) {
 }
 
 DetailsFood.propTypes = {
-  match: PropTypes.objectOf(PropTypes.object).isRequired,
+  match: PropTypes.node.isRequired,
 };
 
 export default DetailsFood;
