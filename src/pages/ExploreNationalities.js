@@ -1,20 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { getNationalityFoods } from '../helpers';
+import { fetchMeals, getNationalityFoods, fetchFilterNationality } from '../helpers';
+import '../css/ExploreNationalities.css';
 
 function ExploreNationalities() {
   const maxArray = 12;
   const [dataNationalityFoods, setDataNationalityFoods] = useState([]);
+  const [changeSelect, setChangeSelect] = useState('');
+  const [dataMealsState, setDataMealsState] = useState([]);
+  const [dataFilterNationality, setDataFilterNationality] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchDataNationality = async () => {
       const data = await getNationalityFoods();
-      console.log(data.meals);
+      const dataMeals = await fetchMeals();
+      console.log(dataMeals);
+      setDataMealsState(dataMeals.meals);
       setDataNationalityFoods(data.meals);
+      if (changeSelect.length > 0) {
+        const dataFilter = await fetchFilterNationality(changeSelect);
+        setDataFilterNationality(dataFilter.meals);
+        console.log(dataFilterNationality);
+      }
     };
     fetchDataNationality();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [changeSelect]);
+
+  const changeSelectNationality = ({ target }) => {
+    setChangeSelect(target.value);
+  };
+
+  const redirectByDetails = (clickId) => {
+    history.push(`/foods/${clickId}`);
+    console.log(history.location.pathname);
+  };
 
   return (
     <div>
@@ -26,6 +49,7 @@ function ExploreNationalities() {
           data-testid="explore-by-nationality-dropdown"
           name="cards"
           id="cards"
+          onChange={ changeSelectNationality }
         >
           {
             dataNationalityFoods.map((selected) => (
@@ -39,24 +63,52 @@ function ExploreNationalities() {
           }
         </select>
         {
-          dataNationalityFoods.slice(0, maxArray)
-            .map((card, index) => (
-              <button
-                type="button"
-                key={ index }
-                data-testid={ `${index}-recipe-card` }
-              >
-                <img
-                  alt={ `${card.strArea}` }
-                  data-testid={ `${index}-card-img` }
-                />
-                <h4
-                  data-testid={ `${index}-card-name` }
+          changeSelect.length > 0 ? (
+            dataFilterNationality.slice(0, maxArray)
+              .map((cardNationality, index) => (
+                <button
+                  type="button"
+                  key={ index }
+                  data-testid={ `${index}-recipe-card` }
+                  onClick={ () => redirectByDetails(cardNationality.idMeal) }
                 >
-                  { card.strArea }
-                </h4>
-              </button>
-            ))
+                  <img
+                    className="image_food"
+                    src={ cardNationality.strMealThumb }
+                    alt={ `${cardNationality.strMeal}` }
+                    data-testid={ `${index}-card-img` }
+                  />
+                  <h4
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { cardNationality.strMeal }
+                  </h4>
+                </button>
+              ))
+          )
+            : (
+              dataMealsState.slice(0, maxArray)
+                .map((card, index) => (
+                  <button
+                    type="button"
+                    key={ index }
+                    data-testid={ `${index}-recipe-card` }
+                    onClick={ () => redirectByDetails(card.idMeal) }
+                  >
+                    <img
+                      className="image_food"
+                      src={ card.strMealThumb }
+                      alt={ `${card.strArea}` }
+                      data-testid={ `${index}-card-img` }
+                    />
+                    <h4
+                      data-testid={ `${index}-card-name` }
+                    >
+                      { card.strMeal }
+                    </h4>
+                  </button>
+                ))
+            )
         }
       </div>
       <Footer />

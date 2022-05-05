@@ -154,3 +154,14 @@ export const getNationalityFoods = async () => {
     return error;
   }
 };
+
+export const fetchFilterNationality = async (paramNationality) => {
+  try {
+    const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${paramNationality}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
