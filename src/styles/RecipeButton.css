@@ -1,0 +1,20 @@
+.startButton {
+  bottom: 0;
+  position: fixed;
+  z-index: 1;
+}
+
+@media ( min-width : 360px ) and ( max-height : 640px ) {
+
+  .startButton {
+    background-color: greenyellow;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+  }
+}
