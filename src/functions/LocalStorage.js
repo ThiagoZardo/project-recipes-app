@@ -34,7 +34,7 @@ export function setLocalStorageDoneRecipes(food, drink, itemId, type) {
   const strDate = `${day2}/${month2}/${year}`;
   const doneObj = {
     id: itemId,
-    type,
+    type: type.replace('s', ''),
     nationality: nation,
     category: ctegory,
     alcoholicOrNot: alcoholic,
