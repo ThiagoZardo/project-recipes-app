@@ -112,6 +112,19 @@ export const getIngredientsFoods = async () => {
   }
 };
 
+export const fetchFoodById = async (id) => {
+  try {
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
+    const meal = await response.json();
+    return meal;
+
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getIngredientsDrinks = async () => {
   try {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
@@ -161,6 +174,18 @@ export const fetchFilterNationality = async (paramNationality) => {
     const response = await fetch(URL);
     const data = await response.json();
     return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const fetchDrinkById = async (id) => {
+  try {
+    const response = await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
+    const meal = await response.json();
+    return meal;
   } catch (error) {
     return error;
   }
