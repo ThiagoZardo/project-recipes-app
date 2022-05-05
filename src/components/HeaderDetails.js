@@ -7,7 +7,7 @@ import { checkIfFavoriteRecipe } from '../functions/checkLocalStorage';
 function HeaderDetails() {
   const stateDetailsFood = useSelector((state) => state.details.foodsDetails);
   const stateDetailsDrink = useSelector((state) => state.details.drinksDetails);
-  const [isFavorite, setIsFavorite] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const location = useLocation();
   const { pathname } = location;
@@ -37,6 +37,15 @@ function HeaderDetails() {
   };
 
   const favoriteChange = () => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!isFavorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...storage, favoriteObj]));
+    } else {
+      const newStorage = storage.filter((itemObject) => (
+        itemObject.id !== itemId
+      ));
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    }
     setIsFavorite(!isFavorite);
   };
 
@@ -45,19 +54,6 @@ function HeaderDetails() {
       setIsFavorite(true);
     }
   }, [itemId]);
-
-  useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (isFavorite) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...storage, favoriteObj]));
-    } else {
-      const newStorage = storage.filter((itemObject) => (
-        itemObject.id !== itemId
-      ));
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFavorite]);
 
   return (
     <div>
