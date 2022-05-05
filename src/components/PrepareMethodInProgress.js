@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { checkIfIInProgressRecipe } from '../functions/checkLocalStorage';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
 import '../styles/recipeInProgress.css';
-import setLocalStorageInProgress from '../functions/LocalStorage';
+import { setLocalStorageDoneRecipes,
+  setLocalStorageInProgress } from '../functions/LocalStorage';
 
 function PrepareMethodInProgress() {
   const detailFood = useSelector((state) => state.details.foodsDetails);
   const detailDrink = useSelector((state) => state.details.drinksDetails);
+  console.log(detailFood);
   const [check, setCheck] = useState([]);
+  const history = useHistory();
   const locate = useLocation();
   const { pathname } = locate;
   const type = pathname.split('/')[1];
@@ -29,6 +32,17 @@ function PrepareMethodInProgress() {
     setCheck(updateList);
   };
   // Ajuda do nosso colega Zardo, pela essa lógica maravilhosa.
+
+  const verifyCheck = () => {
+    const lastIndex = recipeIngredients.length - 1;
+    const ultimoAdd = check.length - 1;
+    if (lastIndex !== ultimoAdd) return true;
+  };
+
+  const handleCheck = () => {
+    history.push('/done-recipes');
+    setLocalStorageDoneRecipes(detailFood, detailDrink, itemId, type);
+  };
 
   useEffect(() => {
     const arrayCheck = checkIfIInProgressRecipe(type, itemId);
@@ -50,13 +64,13 @@ function PrepareMethodInProgress() {
             data-testid={ `${index}-ingredient-step` }
           >
             <label
-              htmlFor={ `${index}-done` }
+              htmlFor={ index }
               className={ check.includes(ingredient) ? 'risk' : '' }
             >
               <input
                 type="checkbox"
                 name="check"
-                id={ `${index}-done` }
+                id={ index }
                 checked={ check.includes(ingredient) }
                 value={ ingredient }
                 onChange={ checkedOne }
@@ -77,6 +91,8 @@ function PrepareMethodInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ verifyCheck() }
+        onClick={ handleCheck }
       >
         FinishRecipe
       </button>
