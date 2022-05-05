@@ -12,18 +12,22 @@ function ExploreNationalities() {
   const [dataMealsState, setDataMealsState] = useState([]);
   const [dataFilterNationality, setDataFilterNationality] = useState([]);
   const history = useHistory();
+  const All = { strArea: 'All' };
 
   useEffect(() => {
     const fetchDataNationality = async () => {
       const data = await getNationalityFoods();
-      const dataMeals = await fetchMeals();
-      console.log(dataMeals);
-      setDataMealsState(dataMeals.meals);
-      setDataNationalityFoods(data.meals);
+      setDataNationalityFoods(data.meals.concat(All));
+      console.log(dataNationalityFoods);
+
+      if (changeSelect.length === 0 || changeSelect === 'All') {
+        const dataMeals = await fetchMeals();
+        setDataMealsState(dataMeals.meals);
+      }
+
       if (changeSelect.length > 0) {
         const dataFilter = await fetchFilterNationality(changeSelect);
         setDataFilterNationality(dataFilter.meals);
-        console.log(dataFilterNationality);
       }
     };
     fetchDataNationality();
@@ -36,7 +40,6 @@ function ExploreNationalities() {
 
   const redirectByDetails = (clickId) => {
     history.push(`/foods/${clickId}`);
-    console.log(history.location.pathname);
   };
 
   return (
@@ -63,7 +66,7 @@ function ExploreNationalities() {
           }
         </select>
         {
-          changeSelect.length > 0 ? (
+          changeSelect.length > 0 && changeSelect !== 'All' ? (
             dataFilterNationality.slice(0, maxArray)
               .map((cardNationality, index) => (
                 <button
