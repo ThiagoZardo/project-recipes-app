@@ -23,6 +23,19 @@ export function checkIfDrinkIsInProgress(id) {
   ));
 }
 
+export function checkIfIInProgressRecipe(type, id) {
+  const Storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const getItem = type === 'drinks' ? Storage.cocktails : Storage.meals;
+  if (type === 'foods' && checkIfMealIsInProgress(id)) {
+    const keyMeal = Object.keys(getItem).filter((key) => key === id);
+    return [...getItem[keyMeal[0]]];
+  }
+  if (type === 'drinks' && checkIfDrinkIsInProgress(id)) {
+    const keyDrink = Object.keys(getItem).filter((key) => key === id);
+    return [...getItem[keyDrink[0]]];
+  }
+}
+
 export function checkIfFavoriteRecipe(id) {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   return favoriteRecipes.some((recipes) => (
@@ -32,7 +45,7 @@ export function checkIfFavoriteRecipe(id) {
 
 export function setLocalStorage() {
   if (!localStorage.getItem('inProgressRecipes')) {
-    localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+    localStorage.setItem('inProgressRecipes', JSON.stringify([]));
   }
   if (!localStorage.getItem('doneRecipes')) {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
