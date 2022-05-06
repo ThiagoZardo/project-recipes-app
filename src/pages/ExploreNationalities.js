@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import HeaderSearch from '../components/HeaderSearch';
 import { fetchMeals, getNationalityFoods, fetchFilterNationality } from '../helpers';
 import '../css/ExploreNationalities.css';
 
@@ -46,6 +47,7 @@ function ExploreNationalities() {
     <div>
       <header>
         <Header heading="Explore Nationalities" />
+        <HeaderSearch />
       </header>
       <div>
         <select
