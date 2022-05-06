@@ -37,6 +37,15 @@ function HeaderDetails() {
   };
 
   const favoriteChange = () => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!isFavorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...storage, favoriteObj]));
+    } else {
+      const newStorage = storage.filter((itemObject) => (
+        itemObject.id !== itemId
+      ));
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
+    }
     setIsFavorite(!isFavorite);
   };
 
@@ -45,14 +54,6 @@ function HeaderDetails() {
       setIsFavorite(true);
     }
   }, [itemId]);
-
-  useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (isFavorite) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([...storage, favoriteObj]));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFavorite]);
 
   return (
     <div>
