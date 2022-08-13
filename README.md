@@ -7,9 +7,8 @@
   A base de dados são 2 APIs distintas, uma para comidas e outra para bebidas.
 
   O layout tem como foco dispositivos móveis, então todos os protótipos foram desenvolvidos em telas menores.
-  
-  
-
+ 
+ 
 ## APIs utilizadas como base de dados.
 
 ### TheMealDB API
@@ -184,7 +183,7 @@ Os ingredientes seguem uma ordem lógica onde o nome dele (`strIngredient1`) e a
   ---
 
 
-# Habilidades desenvolvidas
+## Habilidades desenvolvidas
 
   - Utilizei _Redux_ para gerenciar estado
   - Utilizei a biblioteca _React-Redux_
@@ -198,15 +197,12 @@ Os ingredientes seguem uma ordem lógica onde o nome dele (`strIngredient1`) e a
 
 ---
 
-### Usando o Trello como ferramenta kanban
-Uma forma em que o grupo se organizou foi por meio de DM's diárias e utilizamos o Trello como kanban.
-
----
-
-# Equipe de desenvolvimento
+## Equipe de desenvolvimento
 
   - Thiago Jarilho Zardo (eu)
   - Thiago Medeiros https://github.com/medeirosi1
   - Rafael Moreci
   - Emerson Melo
   - Thiago dos Santos https://github.com/ThiagoGlady
+
+Uma forma em que o grupo se organizou foi por meio de DM's diárias e utilizamos o Trello como kanban.
