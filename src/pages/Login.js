@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import Main, { LoginPage } from '../styles/Login';
 
 function Login() {
   const keyMealsToken = '1';
@@ -23,34 +24,39 @@ function Login() {
   };
 
   return (
-    <section>
-      <div>
-        <form>
-          <input
-            type="email"
-            data-testid="email-input"
-            onChange={ ({ target }) => setEmail(target.value) }
-          />
+    <LoginPage>
+      <Main>
+        <img src="/images/recipe.svg" alt="recipe" />
+        <h1>Login</h1>
+        <input
+          type="email"
+          data-testid="email-input"
+          autoComplete="username"
+          placeholder="Write your email"
+          onChange={ ({ target }) => setEmail(target.value) }
+        />
 
-          <input
-            type="password"
-            data-testid="password-input"
-            onChange={ ({ target }) => setPassword(target.value) }
-          />
+        <input
+          type="password"
+          data-testid="password-input"
+          autoComplete="current-password"
+          placeholder="Write your password"
+          onChange={ ({ target }) => setPassword(target.value) }
+        />
 
-          <button
-            type="button"
-            data-testid="login-submit-btn"
-            onClick={ userLogin }
-            disabled={ !validateButton() }
-          >
-            Enter
-          </button>
-          { loginSuccess && <Redirect to="/foods" /> }
-        </form>
-      </div>
-
-    </section>
+        <input
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ userLogin }
+          value="Enter"
+          disabled={ !validateButton() }
+          className={ validateButton() ? 'buttonAbilitate' : 'button' }
+        />
+        {/* Enter */}
+        {/* </button> */}
+        { loginSuccess && <Redirect to="/foods" /> }
+      </Main>
+    </LoginPage>
   );
 }
 

@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DrinksCard from '../components/DrinksCard';
 import Header from '../components/Header';
-import HeaderSearch from '../components/HeaderSearch';
 import Footer from '../components/Footer';
 import { drinkApi } from '../redux/actions';
+import Category from '../components/Category';
+import { FoodAndDrink } from '../styles/FoodAndDrinkPage';
 
 function Drinks() {
   let drinkStore = useSelector((state) => state.search.drinksSearch);
@@ -24,38 +25,38 @@ function Drinks() {
   }, []);
 
   return (
-    <div>
-      <header>
-        <Header heading="Drinks" />
-        <HeaderSearch />
-      </header>
-      {
-        ingredientDrinkFilter.length > 0
-          ? (
-            ingredientDrinkFilter.slice(0, drinkArray)
-              .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-                <DrinksCard
-                  key={ idDrink }
-                  strDrink={ strDrink }
-                  strDrinkThumb={ strDrinkThumb }
-                  index={ index }
-                  idDrink={ idDrink }
-                />))
-          )
-          : (
-            drinkStore.slice(0, drinkArray)
-              .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-                <DrinksCard
-                  index={ index }
-                  key={ idDrink }
-                  strDrink={ strDrink }
-                  idDrink={ idDrink }
-                  strDrinkThumb={ strDrinkThumb }
-                />))
-          )
-      }
+    <>
+      <Header heading="Drinks" />
+      <Category heading="Drinks" />
+      <FoodAndDrink>
+        {
+          ingredientDrinkFilter.length > 0
+            ? (
+              ingredientDrinkFilter.slice(0, drinkArray)
+                .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+                  <DrinksCard
+                    key={ idDrink }
+                    strDrink={ strDrink }
+                    strDrinkThumb={ strDrinkThumb }
+                    index={ index }
+                    idDrink={ idDrink }
+                  />))
+            )
+            : (
+              drinkStore.slice(0, drinkArray)
+                .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+                  <DrinksCard
+                    index={ index }
+                    key={ idDrink }
+                    strDrink={ strDrink }
+                    idDrink={ idDrink }
+                    strDrinkThumb={ strDrinkThumb }
+                  />))
+            )
+        }
+      </FoodAndDrink>
       <Footer />
-    </div>
+    </>
   );
 }
 

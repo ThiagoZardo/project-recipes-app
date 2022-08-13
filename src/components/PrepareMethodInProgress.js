@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { checkIfIInProgressRecipe } from '../functions/checkLocalStorage';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
-import '../styles/recipeInProgress.css';
 import { setLocalStorageDoneRecipes,
   setLocalStorageInProgress } from '../functions/LocalStorage';
+import { Ingredients, Instructions } from '../styles/DetailsAll';
 
 function PrepareMethodInProgress() {
   const detailFood = useSelector((state) => state.details.foodsDetails);
@@ -55,48 +55,54 @@ function PrepareMethodInProgress() {
   }, [check]);
 
   return (
-    <div>
-      <section>
-        <p>Ingredientes</p>
-        { recipeIngredients.map((ingredient, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <label
-              htmlFor={ index }
-              className={ check.includes(ingredient) ? 'risk' : '' }
+    <>
+      <Ingredients>
+        <h2>Ingredientes</h2>
+        <div className="InProgres">
+          { recipeIngredients.map((ingredient, index) => (
+            <article
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
             >
-              <input
-                type="checkbox"
-                name="check"
-                id={ index }
-                checked={ check.includes(ingredient) }
-                value={ ingredient }
-                onChange={ checkedOne }
-              />
-              { ingredient }
-            </label>
-            {' - '}
-            <span>{ recipeMeasures[index] }</span>
-          </div>
-        ))}
-      </section>
-      <p>Instruções</p>
-      <p
-        data-testid="instructions"
-      >
-        {!idDrink ? detailFood.strInstructions : detailDrink.strInstructions}
-      </p>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        disabled={ verifyCheck() }
-        onClick={ handleCheck }
-      >
-        FinishRecipe
-      </button>
-    </div>
+              <label
+                htmlFor={ index }
+                className={ check.includes(ingredient) ? 'risk' : '' }
+              >
+                <input
+                  type="checkbox"
+                  name="check"
+                  id={ index }
+                  checked={ check.includes(ingredient) }
+                  value={ ingredient }
+                  onChange={ checkedOne }
+                />
+                { ingredient }
+                {' - '}
+                <span>{ recipeMeasures[index] }</span>
+              </label>
+            </article>
+          ))}
+        </div>
+      </Ingredients>
+      <Instructions>
+        <h2>Instruções</h2>
+        <div>
+          <p
+            data-testid="instructions"
+          >
+            {!idDrink ? detailFood.strInstructions : detailDrink.strInstructions}
+          </p>
+        </div>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ verifyCheck() }
+          onClick={ handleCheck }
+        >
+          FinishRecipe
+        </button>
+      </Instructions>
+    </>
   );
 }
 

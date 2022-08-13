@@ -8,6 +8,7 @@ import RecipeButton from '../components/RecipeButton';
 import { setLocalStorage } from '../functions/checkLocalStorage';
 import { fetchFoodById } from '../helpers';
 import { detailFood, drinkApi } from '../redux/actions';
+import { MainDetails } from '../styles/DetailsAll';
 
 function DetailsFood(props) {
   const { match } = props;
@@ -24,12 +25,12 @@ function DetailsFood(props) {
   }, []);
   setLocalStorage();
   return (
-    <main>
+    <MainDetails>
       <HeaderDetails />
       <PrepareMethod />
       <DrinkRecomended />
       <RecipeButton />
-    </main>
+    </MainDetails>
   );
 }
 

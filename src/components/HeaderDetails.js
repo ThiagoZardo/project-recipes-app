@@ -3,6 +3,7 @@ import copy from 'clipboard-copy';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { checkIfFavoriteRecipe } from '../functions/checkLocalStorage';
+import { HDetails, TDetails } from '../styles/DetailsAll';
 
 function HeaderDetails() {
   const stateDetailsFood = useSelector((state) => state.details.foodsDetails);
@@ -13,6 +14,7 @@ function HeaderDetails() {
   const { pathname } = location;
   const itemId = pathname.split('/')[2];
   const type = (pathname.split('/')[1]).replace('s', '');
+  console.log(type);
 
   const { idDrink } = stateDetailsDrink;
   const img = !idDrink ? stateDetailsFood.strMealThumb : stateDetailsDrink.strDrinkThumb;
@@ -56,7 +58,7 @@ function HeaderDetails() {
   }, [itemId]);
 
   return (
-    <div>
+    <HDetails>
       <img
         src={ img }
         alt="Meal"
@@ -64,25 +66,31 @@ function HeaderDetails() {
         height="128"
         data-testid="recipe-photo"
       />
-      <h3 data-testid="recipe-title">{title}</h3>
-      <input
-        type="image"
-        src="/images/shareIcon.svg"
-        alt="shareIcon"
-        data-testid="share-btn"
-        onClick={ shareImage }
-      />
-      {copied && <p>Link copied!</p>}
-      <input
-        type="image"
-        src={ isFavorite ? '/images/blackHeartIcon.svg' : '/images/whiteHeartIcon.svg' }
-        alt="favorite"
-        data-testid="favorite-btn"
-        onClick={ favoriteChange }
-      />
-      <h4 data-testid="recipe-category">{alcoholic}</h4>
-      <h5 data-testid="recipe-category">{ctegory}</h5>
-    </div>
+      <TDetails>
+        <h2 data-testid="recipe-title">{title}</h2>
+        <div>
+          <input
+            type="image"
+            src="/images/shareIcon.svg"
+            alt="shareIcon"
+            data-testid="share-btn"
+            onClick={ shareImage }
+          />
+          {copied && <p>Link copied!</p>}
+          <input
+            type="image"
+            src={ isFavorite
+              ? '/images/blackHeartIcon.svg' : '/images/whiteHeartIcon.svg' }
+            alt="favorite"
+            data-testid="favorite-btn"
+            onClick={ favoriteChange }
+          />
+        </div>
+      </TDetails>
+      { type === 'food'
+        ? <h3 data-testid="recipe-category">{ctegory}</h3>
+        : <h3 data-testid="recipe-category">{alcoholic}</h3>}
+    </HDetails>
   );
 }
 

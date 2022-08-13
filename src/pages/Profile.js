@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { HeaderProfile, Perfil } from '../styles/Perfil';
 
 function Profile() {
   const [redirectFR, setRedirectFR] = useState(false);
@@ -20,16 +21,16 @@ function Profile() {
   };
 
   return (
-    <div>
-      <header>
+    <>
+      <HeaderProfile>
         <Header heading="Profile" />
-      </header>
-      <nav>
-        <p
+      </HeaderProfile>
+      <Perfil>
+        <h2
           data-testid="profile-email"
         >
           { email }
-        </p>
+        </h2>
         <button
           type="button"
           data-testid="profile-done-btn"
@@ -54,9 +55,9 @@ function Profile() {
         { redirectFR && <Redirect to="/favorite-recipes" /> }
         { redirectDR && <Redirect to="/done-recipes" /> }
         { redirectLogout && <Redirect to="/" /> }
-      </nav>
+      </Perfil>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -12,6 +12,9 @@ import {
 import { ingredientFood, ingredientDrink } from '../redux/actions';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { CardIngredientes,
+  ExplorerHeaderIngredients,
+  ExploresIngredients } from '../styles/ExploreCSS';
 
 function ExploreIngredients(props) {
   const mealsArray = 12;
@@ -56,60 +59,67 @@ function ExploreIngredients(props) {
   }, []);
 
   return (
-    <div>
-      <header>
+    <>
+      <ExplorerHeaderIngredients>
         <Header heading="Explore Ingredients" />
-      </header>
-      {
-        pathname === '/explore/foods/ingredients' && (
-          dataIngredientsFood.slice(0, mealsArray)
-            .map((el, index) => (
-              <button
-                type="button"
-                onClick={ () => clickIngredientFood(el.strIngredient) }
-                key={ el.idIngredient }
-                data-testid={ `${index}-ingredient-card` }
-              >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  alt={ `${el.strIngredient}` }
-                  src={ `https://www.themealdb.com/images/ingredients/${el.strIngredient}-Small.png` }
-                />
-                <h4
-                  data-testid={ `${index}-card-name` }
-                >
-                  { el.strIngredient }
-                </h4>
-              </button>
-            ))
-        )
-      }
-      {
-        pathname === '/explore/drinks/ingredients' && (
-          dataIngredientDrink.slice(0, mealsArray)
-            .map((el, index) => (
-              <button
-                type="button"
-                data-testid={ `${index}-ingredient-card` }
-                key={ el.strIngredient1 }
-                onClick={ () => clickIngredientDrink(el.strIngredient1) }
-              >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  alt={ `${el.strIngredient1}` }
-                  src={ `https://www.thecocktaildb.com/images/ingredients/${el.strIngredient1}-Small.png` }
-                />
-                <h4
-                  data-testid={ `${index}-card-name` }
-                >
-                  { el.strIngredient1 }
-                </h4>
-              </button>
-            ))
-        )
-      }
+      </ExplorerHeaderIngredients>
+      <ExploresIngredients>
+        {
+          pathname === '/explore/foods/ingredients' && (
+            dataIngredientsFood.slice(0, mealsArray)
+              .map((el, index) => (
+                <CardIngredientes key={ el.idIngredient }>
+                  <button
+                    type="button"
+                    onClick={ () => clickIngredientFood(el.strIngredient) }
+                    data-testid={ `${index}-ingredient-card` }
+                  >
+                    <img
+                      data-testid={ `${index}-card-img` }
+                      alt={ `${el.strIngredient}` }
+                      src={ `https://www.themealdb.com/images/ingredients/${el.strIngredient}-Small.png` }
+                    />
+                    <div>
+                      <h4
+                        data-testid={ `${index}-card-name` }
+                      >
+                        { el.strIngredient }
+                      </h4>
+                    </div>
+                  </button>
+                </CardIngredientes>
+              ))
+          )
+        }
+        {
+          pathname === '/explore/drinks/ingredients' && (
+            dataIngredientDrink.slice(0, mealsArray)
+              .map((el, index) => (
+                <CardIngredientes key={ el.strIngredient1 }>
+                  <button
+                    type="button"
+                    data-testid={ `${index}-ingredient-card` }
+                    onClick={ () => clickIngredientDrink(el.strIngredient1) }
+                  >
+                    <img
+                      data-testid={ `${index}-card-img` }
+                      alt={ `${el.strIngredient1}` }
+                      src={ `https://www.thecocktaildb.com/images/ingredients/${el.strIngredient1}-Small.png` }
+                    />
+                    <h4
+                      data-testid={ `${index}-card-name` }
+                    >
+                      { el.strIngredient1 }
+                    </h4>
+                  </button>
+                </CardIngredientes>
+              ))
+          )
+        }
+      </ExploresIngredients>
       <Footer />
-    </div>
+    </>
+
   );
 }
 

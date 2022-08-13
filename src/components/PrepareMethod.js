@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { filterIngredients, filterMeasures } from '../functions/filterRecipe';
+import { Ingredients, Instructions } from '../styles/DetailsAll';
 
 function PrepareMethod() {
   const detailFood = useSelector((state) => state.details.foodsDetails);
@@ -20,37 +21,46 @@ function PrepareMethod() {
 
   return (
     <>
-      <section>
-        <p>Ingredientes</p>
-        { recipeIngredients.map((ingredient, index) => (
+      <Ingredients>
+        <h2>Ingredientes</h2>
+        <div>
+          { recipeIngredients.map((ingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              <span>{ `- ${ingredient}` }</span>
+              {' - '}
+              <span>{ recipeMeasures[index] }</span>
+            </p>
+          ))}
+        </div>
+      </Ingredients>
+      <Instructions>
+        <h2>Instruções</h2>
+        <div>
           <p
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            data-testid="instructions"
           >
-            <span>{ ingredient }</span>
-            {' - '}
-            <span>{ recipeMeasures[index] }</span>
+            {!idDrink ? detailFood.strInstructions : detailDrink.strInstructions}
           </p>
-        ))}
-      </section>
-      <article>
-        <p>Instruções</p>
-        <p
-          data-testid="instructions"
-        >
-          {!idDrink ? detailFood.strInstructions : detailDrink.strInstructions}
-        </p>
+        </div>
         {
           !idDrink
-          && <iframe
-            width="420"
-            height="315"
-            src={ videoUrl }
-            title="Vídeo da Receita"
-            data-testid="video"
-          />
+          && (
+            <>
+              <h2>Vídeo</h2>
+              <iframe
+                width="420"
+                height="315"
+                src={ videoUrl }
+                title="Vídeo da Receita"
+                data-testid="video"
+              />
+            </>
+          )
         }
-      </article>
+      </Instructions>
     </>
   );
 }

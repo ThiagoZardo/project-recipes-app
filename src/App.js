@@ -1,7 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
 import DetailsDrink from './pages/DetailsDrink';
 import DetailsFood from './pages/DetailsFood';
 import Done from './pages/Done';
@@ -18,11 +16,12 @@ import Foods from './pages/Foods';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import { AppGeral } from './styles/AppStyle';
 
 function App() {
   return (
-    <div>
-      <Switch>
+    <Switch>
+      <AppGeral>
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ Foods } />
         <Route exact path="/drinks" component={ Drinks } />
@@ -56,8 +55,8 @@ function App() {
         <Route exact path="/done-recipes" component={ Done } />
         <Route exact path="/favorite-recipes" component={ Favorite } />
         <Route path="/explore/drinks/nationalities" component={ NotFound } />
-      </Switch>
-    </div>
+      </AppGeral>
+    </Switch>
   );
 }
 
