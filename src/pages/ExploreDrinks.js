@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { getSurpriseDrinks } from '../helpers';
+import Explores, { ExplorerHeaderFoodDrink } from '../styles/ExploreCSS';
 
 function ExploreDrinks() {
   const history = useHistory();
@@ -15,14 +16,11 @@ function ExploreDrinks() {
   };
 
   return (
-    <div>
-      <header>
+    <>
+      <ExplorerHeaderFoodDrink>
         <Header heading="Explore Drinks" />
-      </header>
-      <div>
-        <header>
-          <Header heading="Explore Foods" />
-        </header>
+      </ExplorerHeaderFoodDrink>
+      <Explores>
         <button
           type="button"
           data-testid="explore-by-ingredient"
@@ -38,11 +36,10 @@ function ExploreDrinks() {
         >
           Surprise me!
         </button>
-
-        <Footer />
-      </div>
+        <img src="/images/wine.svg" alt="wine" />
+      </Explores>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import HeaderSearch from '../components/HeaderSearch';
 import { fetchMeals, getNationalityFoods, fetchFilterNationality } from '../helpers';
 import '../css/ExploreNationalities.css';
+import { Card, FoodAndDrink } from '../styles/FoodAndDrinkPage';
+import { ExploreNation, ExplorerHeaderNation } from '../styles/ExploreCSS';
 
 function ExploreNationalities() {
   const maxArray = 12;
@@ -44,12 +45,11 @@ function ExploreNationalities() {
   };
 
   return (
-    <div>
-      <header>
+    <>
+      <ExplorerHeaderNation>
         <Header heading="Explore Nationalities" />
-        <HeaderSearch />
-      </header>
-      <div>
+      </ExplorerHeaderNation>
+      <ExploreNation>
         <select
           data-testid="explore-by-nationality-dropdown"
           name="cards"
@@ -67,57 +67,65 @@ function ExploreNationalities() {
             ))
           }
         </select>
+      </ExploreNation>
+      <FoodAndDrink>
         {
           changeSelect.length > 0 && changeSelect !== 'All' ? (
             dataFilterNationality.slice(0, maxArray)
               .map((cardNationality, index) => (
-                <button
-                  type="button"
-                  key={ index }
-                  data-testid={ `${index}-recipe-card` }
-                  onClick={ () => redirectByDetails(cardNationality.idMeal) }
-                >
-                  <img
-                    className="image_food"
-                    src={ cardNationality.strMealThumb }
-                    alt={ `${cardNationality.strMeal}` }
-                    data-testid={ `${index}-card-img` }
-                  />
-                  <h4
-                    data-testid={ `${index}-card-name` }
+                <Card key={ index }>
+                  <button
+                    type="button"
+                    data-testid={ `${index}-recipe-card` }
+                    onClick={ () => redirectByDetails(cardNationality.idMeal) }
                   >
-                    { cardNationality.strMeal }
-                  </h4>
-                </button>
+                    <img
+                      className="image_food"
+                      src={ cardNationality.strMealThumb }
+                      alt={ `${cardNationality.strMeal}` }
+                      data-testid={ `${index}-card-img` }
+                    />
+                    <div>
+                      <h4
+                        data-testid={ `${index}-card-name` }
+                      >
+                        { cardNationality.strMeal }
+                      </h4>
+                    </div>
+                  </button>
+                </Card>
               ))
           )
             : (
               dataMealsState.slice(0, maxArray)
                 .map((card, index) => (
-                  <button
-                    type="button"
-                    key={ index }
-                    data-testid={ `${index}-recipe-card` }
-                    onClick={ () => redirectByDetails(card.idMeal) }
-                  >
-                    <img
-                      className="image_food"
-                      src={ card.strMealThumb }
-                      alt={ `${card.strArea}` }
-                      data-testid={ `${index}-card-img` }
-                    />
-                    <h4
-                      data-testid={ `${index}-card-name` }
+                  <Card key={ index }>
+                    <button
+                      type="button"
+                      data-testid={ `${index}-recipe-card` }
+                      onClick={ () => redirectByDetails(card.idMeal) }
                     >
-                      { card.strMeal }
-                    </h4>
-                  </button>
+                      <img
+                        className="image_food"
+                        src={ card.strMealThumb }
+                        alt={ `${card.strArea}` }
+                        data-testid={ `${index}-card-img` }
+                      />
+                      <div>
+                        <h4
+                          data-testid={ `${index}-card-name` }
+                        >
+                          { card.strMeal }
+                        </h4>
+                      </div>
+                    </button>
+                  </Card>
                 ))
             )
         }
-      </div>
+      </FoodAndDrink>
       <Footer />
-    </div>
+    </>
   );
 }
 

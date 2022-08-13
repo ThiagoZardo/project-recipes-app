@@ -44,6 +44,7 @@ function FoodsFavoriteCard(props) {
         type="image"
         src={ recipe.image }
         alt="comida favorita"
+        className="img"
         width="360"
         height="128"
         data-testid={ `${index}-horizontal-image` }
@@ -58,28 +59,31 @@ function FoodsFavoriteCard(props) {
           )
         }
       </p>
-      <scan
+      <button
+        type="button"
         data-testid={ `${index}-horizontal-name` }
         onClick={ redirectToDetails }
       >
         {recipe.name}
-      </scan>
-      <input
-        type="image"
-        src="/images/shareIcon.svg"
-        alt="shareIcon"
-        data-testid={ `${index}-horizontal-share-btn` }
-        onClick={ shareLinkRecipe }
-      />
-      { copied && <p>Link copied!</p> }
-      <input
-        type="image"
-        src="/images/blackHeartIcon.svg"
-        alt="favorite"
-        data-testid={ `${index}-horizontal-favorite-btn` }
-        onClick={ removeFavorite }
-      />
+      </button>
       <br />
+      <div className="shares">
+        <input
+          type="image"
+          src="/images/shareIcon.svg"
+          alt="shareIcon"
+          data-testid={ `${index}-horizontal-share-btn` }
+          onClick={ shareLinkRecipe }
+        />
+        { copied && <p>Link copied!</p> }
+        <input
+          type="image"
+          src="/images/blackHeartIcon.svg"
+          alt="favorite"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          onClick={ removeFavorite }
+        />
+      </div>
     </>
   );
 }

@@ -10,6 +10,7 @@ import {
   fetchMeals,
 } from '../helpers';
 import { searchDrink, searchFood } from '../redux/actions';
+import CategoryCSS from '../styles/CategoryCSS';
 
 function Category(props) {
   const { heading } = props;
@@ -59,6 +60,7 @@ function Category(props) {
         setBackupItems(backup.meals);
       } }
     >
+      <img src={ `images/${strCategory}.svg` } alt={ strCategory } />
       {strCategory}
     </button>
   ));
@@ -78,12 +80,13 @@ function Category(props) {
         setBackupItems(backup.drinks);
       } }
     >
+      <img src={ `images/${strCategory}.svg` } alt={ strCategory } />
       {strCategory}
     </button>
   ));
 
   return (
-    <div>
+    <CategoryCSS>
       {
         heading !== 'Explore Nationalities' && (
           <button
@@ -94,12 +97,13 @@ function Category(props) {
               dispatch(searchDrink(backupItems));
             } }
           >
+            <img src="/images/All.svg" alt="All" />
             All
           </button>
         )
       }
       {heading === 'Foods' ? (fCategories) : dCategories}
-    </div>
+    </CategoryCSS>
   );
 }
 

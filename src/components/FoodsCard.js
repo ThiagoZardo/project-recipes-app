@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { Card } from '../styles/FoodAndDrinkPage';
 
 function FoodsCard(props) {
   const { index, strMealThumb, strMeal, idMeal } = props;
   const history = useHistory();
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <Card data-testid={ `${index}-recipe-card` }>
       <button
         type="button"
         onClick={ () => history.push(`/foods/${idMeal}`) }
@@ -16,9 +17,11 @@ function FoodsCard(props) {
           alt={ strMeal }
           data-testid={ `${index}-card-img` }
         />
-        <h4 data-testid={ `${index}-card-name` }>{strMeal}</h4>
+        <div>
+          <h4 data-testid={ `${index}-card-name` }>{strMeal}</h4>
+        </div>
       </button>
-    </div>
+    </Card>
   );
 }
 

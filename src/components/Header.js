@@ -1,39 +1,34 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Category from './Category';
-import SearchBar from './SearchBar';
+import HeaderPage from '../styles/Header';
+import HeaderSearch from './HeaderSearch';
 
 function Header(props) {
   const history = useHistory();
   const { heading } = props;
   return (
-    <div>
-      <h3 data-testid="page-title">{heading}</h3>
+    <HeaderPage className="headerExplore">
       <input
         type="image"
-        src="images/profileIcon.svg"
+        src="/images/profileIcon.svg"
         alt="Profile"
+        className="profile"
         data-testid="profile-top-btn"
         onClick={ () => history.push('/profile') }
       />
+      <h3 data-testid="page-title">{heading}</h3>
       {
         heading === 'Foods' && (
-          <>
-            <SearchBar heading={ heading } />
-            <Category heading={ heading } />
-          </>
+          <HeaderSearch heading={ heading } />
         )
       }
       {
         heading === 'Drinks' && (
-          <>
-            <SearchBar heading={ heading } />
-            <Category heading={ heading } />
-          </>
+          <HeaderSearch heading={ heading } />
         )
       }
-    </div>
+    </HeaderPage>
   );
 }
 

@@ -2,14 +2,17 @@ import React from 'react';
 import DoneCard from '../components/DoneCard';
 import Header from '../components/Header';
 import { setLocalStorage } from '../functions/checkLocalStorage';
+import { HeaderDone } from '../styles/RecipeDone';
 
 function Done() {
   setLocalStorage();
   return (
-    <div>
-      <Header heading="Done Recipes" />
+    <>
+      <HeaderDone>
+        <Header heading="Done Recipes" />
+      </HeaderDone>
       <DoneCard />
-    </div>
+    </>
   );
 }
 

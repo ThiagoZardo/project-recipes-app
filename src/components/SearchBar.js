@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
 import { fetchFoods, getDrinks } from '../helpers';
 import { searchDrink, searchFood } from '../redux/actions';
 
@@ -59,56 +58,59 @@ const SearchBar = (props) => {
     }
   };
   return (
-    <section>
-      <form>
+    <form>
+      <div>
         <label
           htmlFor="ingredient-search"
         >
-          Ingredient:
           <input
             type="radio"
             name="select"
-            id="ingredient"
+            id="ingredient-search"
             data-testid="ingredient-search-radio"
             onChange={ ({ target }) => setEndPoint(target.id) }
           />
+          <img src="/images/ingredients.svg" alt="ingredients" />
+          Ingredient
         </label>
 
         <label
           htmlFor="name-search"
         >
-          Name:
           <input
             type="radio"
             name="select"
-            id="name"
+            id="name-search"
             data-testid="name-search-radio"
             onChange={ ({ target }) => setEndPoint(target.id) }
           />
+          <img src="/images/book.svg" alt="name" />
+          Name
         </label>
 
         <label
           htmlFor="letter-search"
         >
-          First letter:
           <input
             type="radio"
             name="select"
-            id="firstLetter"
+            id="letter-search"
             data-testid="first-letter-search-radio"
             onChange={ ({ target }) => setEndPoint(target.id) }
           />
+          <img src="/images/bookletter.svg" alt="ingredients" />
+          First letter
         </label>
+      </div>
 
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ buttonRequestApi }
-        >
-          Search
-        </button>
-      </form>
-    </section>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ buttonRequestApi }
+      >
+        Search
+      </button>
+    </form>
   );
 };
 
