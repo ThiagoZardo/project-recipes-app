@@ -201,8 +201,8 @@ Os ingredientes seguem uma ordem lógica onde o nome dele (`strIngredient1`) e a
 
   - Thiago Jarilho Zardo (eu)
   - Thiago Medeiros https://github.com/medeirosi1
-  - Rafael Moreci
-  - Emerson Melo
+  - Rafael Moreci https://github.com/Terexes
+  - Emerson Melo https://github.com/DevMelloAp
   - Thiago dos Santos https://github.com/ThiagoGlady
 
 Uma forma em que o grupo se organizou foi por meio de DM's diárias e utilizamos o Trello como kanban.
